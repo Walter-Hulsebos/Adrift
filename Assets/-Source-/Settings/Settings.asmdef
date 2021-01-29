@@ -1,8 +1,8 @@
 {
-    "name": "Game.Runtime",
-    "rootNamespace": "Game",
+    "name": "Settings",
+    "rootNamespace": "",
     "references": [
-        "GUID:f27d04ac38875364db1517c548eace08"
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
