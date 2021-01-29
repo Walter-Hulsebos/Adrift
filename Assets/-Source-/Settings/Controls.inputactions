@@ -1,6 +1,53 @@
 {
     "name": "Controls",
-    "maps": [],
+    "maps": [
+        {
+            "name": "Cursor",
+            "id": "b2484957-de7d-4e54-b09d-14be6e73babd",
+            "actions": [
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "32905103-559e-4eae-b548-14ad5bfa63e3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "6d56b4c1-dbca-4b00-932f-41440b6f8d61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d6c774c7-f969-4b64-9ff0-aabc3fad6476",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "56a8ae1c-2f9e-456f-b482-db63b0bfb5f0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
     "controlSchemes": [
         {
             "name": "Gameplay",
