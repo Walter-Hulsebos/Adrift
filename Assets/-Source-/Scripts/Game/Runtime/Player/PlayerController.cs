@@ -8,6 +8,17 @@ namespace Game
     {
         #region Variables
 
+        #region Public
+
+        /// <summary>
+        /// Event that will be triggered when the player collides with an object
+        /// </summary>
+        /// <param name="force">The speed the player was going at at the moment of impact</param>
+        public delegate void HitObstacle(float force);
+        public HitObstacle onHitObstacle;
+
+        #endregion
+
         #region Private
 
         #region Exposed
@@ -36,7 +47,6 @@ namespace Game
 
         #region Unity Methods
 
-
         void Update()
         {
             Rotate(-rotationSlider);
@@ -58,6 +68,11 @@ namespace Game
             }
 
             transform.Translate(Vector3.up * currentSpeed * Time.deltaTime, Space.Self);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            onHitObstacle?.Invoke(currentSpeed);
         }
 
         #endregion

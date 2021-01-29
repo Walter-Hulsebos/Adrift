@@ -4,14 +4,17 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Asteroid : MonoBehaviour
+    public class Asteroid : MonoBehaviour, IHittable
     {
         #region Variables
 
         #region Public
 
         public int amountOfNeutronium = 0;
-        public bool hasNeutronium = false;
+        
+
+        public delegate void AsteroidDestroyed(int resources);
+        public AsteroidDestroyed onAsteroidDestroyed;
 
         #endregion
 
@@ -23,17 +26,20 @@ namespace Game
 
         #endregion
 
+        private bool hasNeutronium;
         private bool isTurning;
         private float turnSpeed;
+        private float health;
+        private float size;
 
         private int minNeutronium = 10, maxNeutronium = 150;
         private const float minSize = 0.5f, maxSize = 1.5f;
         private const int minRot = 0, maxRot = 260;
         private const int minTurnSpeed = 25, maxTurnSpeed = 60;
+        private const int minHealth = 100, maxHealth = 120;
 
-        private const int minMineValue = 1, maxMineValue = 10;
-
-        private SpriteRenderer renderer;
+        private SpriteRenderer spriteRenderer;
+        private Color currentColor;
 
         #endregion
 
@@ -43,19 +49,26 @@ namespace Game
 
         #region Unity Methods
 
-        void Start()
+        public void Initialize(bool shouldHaveNeutronium)
         {
-            if (hasNeutronium) amountOfNeutronium = Random.Range(minNeutronium, maxNeutronium);
+            hasNeutronium = shouldHaveNeutronium;
 
-            renderer = gameObject.GetComponent<SpriteRenderer>();
-            renderer.color = emptyColor;
+            onAsteroidDestroyed += ResourceManager.Instance.AddNeutronium;
 
             if (hasNeutronium)
             {
-                renderer.color = Color.Lerp(emptyColor, fullColor, amountOfNeutronium / maxNeutronium);
+                amountOfNeutronium = Random.Range(minNeutronium, maxNeutronium);
+                currentColor = Color.Lerp(emptyColor, fullColor, (float)amountOfNeutronium / maxNeutronium);
             }
 
-            transform.localScale = Vector3.one * Random.Range(minSize, maxSize);
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            currentColor = emptyColor;
+
+            spriteRenderer.color = currentColor;
+
+            float size = Random.Range(minSize, maxSize);
+
+            transform.localScale = Vector3.one * size;
             transform.localRotation = new Quaternion(0, 0, Random.Range(minRot, maxRot), 0);
             turnSpeed = Random.Range(minTurnSpeed, maxTurnSpeed);
 
@@ -67,6 +80,8 @@ namespace Game
             if (sign == 0) sign = -1;
 
             turnSpeed *= sign;
+
+            health = Random.Range(minHealth, maxHealth) * size;
         }
 
         private void Update()
@@ -77,21 +92,26 @@ namespace Game
             }
         }
 
+        private void OnDestroy()
+        {
+            onAsteroidDestroyed -= ResourceManager.Instance.AddNeutronium;
+        }
+
         #endregion
 
         #region Public
 
-        public int Mine()
+        public void Hit(float damage)
         {
-            int amount = Random.Range(minMineValue, maxMineValue);
-            amountOfNeutronium -= amount;
+            health -= damage;
 
-            if (hasNeutronium)
+            if(health < 0)
             {
-                renderer.color = Color.Lerp(emptyColor, fullColor, amountOfNeutronium / maxNeutronium);
+                spriteRenderer.enabled = false;
+                EffectManager.Instance.SpawnExplosion(transform.position, currentColor);
+                onAsteroidDestroyed?.Invoke(amountOfNeutronium);
+                Destroy(gameObject);
             }
-
-            return amount;
         }
 
         #endregion
