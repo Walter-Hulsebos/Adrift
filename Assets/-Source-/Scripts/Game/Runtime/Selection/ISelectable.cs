@@ -7,6 +7,22 @@ namespace Game
     /// </summary>
     public interface ISelectable
     {
+        #region Events
+
+        event Action Select_Event;
+        event Action Deselect_Event;
+
+        #endregion
+
+        #region Properties
+
+        bool IsHovered { get; set; }
+        bool IsPressed { get; set; }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Called when selected.
         /// </summary>
@@ -17,7 +33,6 @@ namespace Game
         /// </summary>
         void OnDeselect();
 
-        event Action Select_Event;
-        event Action Deselect_Event;
+        #endregion
     }
 }
