@@ -522,6 +522,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 395440208398706500, guid: 4e407d6d7d1cd864387408b9861ff62f, type: 3}
+      propertyPath: enemySpawnChance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 395440208398706501, guid: 4e407d6d7d1cd864387408b9861ff62f, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -570,8 +574,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: SystemManager
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 395440208398706502, guid: 4e407d6d7d1cd864387408b9861ff62f, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e407d6d7d1cd864387408b9861ff62f, type: 3}
 --- !u!1001 &737195542594317558
 PrefabInstance:

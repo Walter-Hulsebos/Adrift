@@ -4,7 +4,12 @@ using UnityEngine;
 using JetBrains.Annotations;
 
 #if ODIN_INSPECTOR
+using Sirenix.Serialization;
 using Sirenix.OdinInspector;
+
+using MonoBehaviour = Sirenix.OdinInspector.SerializedMonoBehaviour;
+#else
+using MonoBehaviour = UnityEngine.MonoBehaviour;
 #endif
 
 namespace Game
@@ -24,9 +29,6 @@ namespace Game
         [AssetsOnly]
         #endif
         [SerializeField] protected Projectile projectilePrefab;
-        
-        //[field: SerializeField]
-        //public PolygonCollider2D Collider { get; protected set; }
 
         private float _currThrust = 0;
         private const float _MAX_THRUST = 1;
@@ -56,7 +58,11 @@ namespace Game
         [PublicAPI] 
         public float ActorRotation => Body.rotation;
 
+        [OdinSerialize]
         public bool IsAccelerating => (thrustInput > 0);
+
+        [OdinSerialize]
+        public bool IsRotating => (rotInput != 0);
         
         /// <summary> Direction the actor is traveling in. </summary>
         [PublicAPI]
@@ -95,18 +101,25 @@ namespace Game
 
         private void Move()
         {
-            if (rotInput != 0)
+            if (IsRotating)
             {
+                //Debug.Log("ROT INPUT IS NOT 0");
+                
                 float __newRotation = ActorRotation - rotSpeed * RotPower * rotInput * Time.fixedDeltaTime;
                 __newRotation = NormalizeAngle(__newRotation);
                 
-                Body.MoveRotation(angle: __newRotation);
+                
+                Body.MoveRotation(angle: 30);
+                //Debug.Log("MoveRotation");
             }
             
             if (IsAccelerating)
             {
-                _currThrust = Mathf.Min(_currThrust + 2.4f * Time.fixedDeltaTime, _MAX_THRUST);
-                Body.AddForce(force: AimDir * (acceleration * _currThrust), ForceMode2D.Impulse);
+                _currThrust = Mathf.Min(_currThrust * Time.fixedDeltaTime, _MAX_THRUST);
+                Vector2 __force = AimDir * (acceleration * _currThrust);
+                
+                Body.AddForce(force: __force, ForceMode2D.Impulse);
+                //Debug.Log("AddForce");
             }
             else
             {

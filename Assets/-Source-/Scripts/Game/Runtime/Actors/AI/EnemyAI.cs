@@ -66,6 +66,8 @@ namespace Game
 
                 float __rotDiff = NormalizeAngle(__goalAng - ActorRotation + 90);
                 float __rotDiffAbs = Mathf.Abs(__rotDiff - 180);
+
+                bool aimingAtTarget = (__rotDiffAbs < desiredGoalAngle);
                 
                 float __distSqr = DistanceToPlayerSqr;
 
@@ -81,8 +83,10 @@ namespace Game
                 
                 void __Aiming()
                 {
-                    if (__rotDiffAbs > desiredGoalAngle)
+                    if (!aimingAtTarget)
                     {
+                        //Debug.Log("__Aiming A");
+                        
                         if (__rotDiff > 0)
                         {
                             rotInput = 1;
@@ -94,6 +98,7 @@ namespace Game
                     }
                     else
                     {
+                        //Debug.Log("__Aiming B");
                         rotInput = 0;
                     }
                 }
@@ -101,10 +106,14 @@ namespace Game
                 {
                     if (inFollowRange && aligned) //Align up first, then follow.
                     {
+                        //Debug.Log("__Following A");
+                        
                         thrustInput = 1;
                     }
                     else
                     {
+                        //Debug.Log("__Following B");
+                        
                         thrustInput = 0;
                     }
                     
@@ -123,6 +132,8 @@ namespace Game
                 {
                     if(inAttackRange && aligned) //Align up first, then shoot.
                     {
+                        //Debug.Log("__Shooting A");
+                        
                         Fire();
                     }    
                 }
