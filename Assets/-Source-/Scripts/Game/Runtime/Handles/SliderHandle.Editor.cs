@@ -9,20 +9,20 @@ namespace Game
 
     namespace Buttons
     {
-        public sealed partial class Slider
+        public sealed partial class SliderHandle
         {
-            [CustomEditor(typeof(Slider))]
+            [CustomEditor(typeof(SliderHandle))]
             private sealed class SliderEditor : Editor
             {
-                private Slider _slider;
+                private SliderHandle _slider;
                 
                 private void OnSceneGUI()
                 {
                     float __min = serializedObject.FindProperty(nameof(min)).floatValue;
                     float __range = serializedObject.FindProperty(nameof(range)).floatValue;
-                    float __amountMoved = serializedObject.FindProperty(nameof(_amountMoved)).floatValue;
+                    float __amountMoved = serializedObject.FindProperty(nameof(amountMoved)).floatValue;
 
-                    _slider = (Slider)target;
+                    _slider = (SliderHandle)target;
                     
                     Vector3 __position = _slider.frame.position;
                     Vector3 __up       = _slider.frame.up;

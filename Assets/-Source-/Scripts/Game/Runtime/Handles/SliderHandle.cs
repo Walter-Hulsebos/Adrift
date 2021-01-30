@@ -1,17 +1,11 @@
-using System;
-using JetBrains.Annotations;
 using UnityEngine;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Game
 {
 
     namespace Buttons
     {
-        public sealed partial class Slider : Knob
+        public sealed partial class SliderHandle : Handle
         {
             #region Fields
 
@@ -24,13 +18,10 @@ namespace Game
             
             [Min(0)]
             [HideInInspector]
-            [SerializeField]
-            private float _amountMoved = 0;
-
-            [UsedImplicitly]
-            private Vector3 _initialPosition;
+            [SerializeField] private float amountMoved = 0.5f;
+  
             
-            [SerializeField] private Renderer renderer;
+            [SerializeField] private new Renderer renderer;
             
             [SerializeField] private bool snapping = false;
 
@@ -39,12 +30,11 @@ namespace Game
             #endregion
 
             #region Properties
-
-            [field: SerializeField]
+            
             private float AmountMoved
             {
-                get => _amountMoved;
-                set => _amountMoved = value.Clamp(min: 0f, max: range);
+                get => amountMoved;
+                set => amountMoved = value.Clamp(min: 0f, max: range);
             }
             
             private float AmountMovedPercentage => (AmountMoved / range);
@@ -57,19 +47,7 @@ namespace Game
             {
                 renderer ??= GetComponent<Renderer>();
             }
-
-            private void Start()
-            {
-                _initialPosition = transform.localPosition;
-
-                if (_amountMoved < 0f || _amountMoved > range)
-                {
-                    Debug.LogWarning(message: "Amount moved should be within the movement range", context: this);
-                }
-                
-                OnValueChanged(AmountMovedPercentage);
-            }
-
+            
             public override void OnHoverEnter()
             {
                 base.OnHoverEnter();
@@ -96,25 +74,12 @@ namespace Game
                 renderer.transform.localScale = Vector3.one * 1f;
             }
 
-            private void OnDrawGizmos()
-            {
-                if (SelectionManagerExists)
-                {
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawRay(SelectionManager.MouseRay);
-
-                    Gizmos.color = Color.yellow;
-                    Plane __plane = new Plane(inPoint: frame.position, inNormal: frame.up);
-                    Gizmos.DrawRay(from: frame.position, direction: __plane.normal);
-                }
-            }
-
             protected override void OnSelectUpdate()
             {
                 Vector3 __mousePosOnAxis = ClosestUpAxisPosition(MouseRelativeOnPlane);
 
-                float __distance = Vector3.Distance(__mousePosOnAxis, handle.position);
-                float __dot = Vector3.Dot(frame.up, __mousePosOnAxis - handle.position); // dot product is -1 when vectors point in opposite directions
+                float __distance = Vector3.Distance(__mousePosOnAxis, knob.position);
+                float __dot = Vector3.Dot(frame.up, __mousePosOnAxis - knob.position); // dot product is -1 when vectors point in opposite directions
             
                 AmountMoved += (__distance * (__dot < 0f ? -1f : 1f));
                 
@@ -130,7 +95,7 @@ namespace Game
             private void SetPositionBasedOnAmountMoved()
             {
                 Vector3 __minPosition = (Vector3.up * this.min);
-                handle.localPosition = __minPosition + (Vector3.up * AmountMoved);
+                knob.localPosition = __minPosition + (Vector3.up * AmountMoved);
                 
                 OnValueChanged(AmountMovedPercentage);
             }

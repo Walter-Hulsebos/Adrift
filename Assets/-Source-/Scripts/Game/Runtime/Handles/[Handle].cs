@@ -8,13 +8,13 @@ namespace Game
     
     namespace Buttons
     {
-        public abstract class Knob : BaseSelectable
+        public abstract class Handle : BaseSelectable
         {
             #region Fields
 
-            [SerializeField] protected Transform frame, handle;
-
-            [SerializeField] private bool useCurve;
+            [SerializeField] protected Transform frame, knob;
+            
+            [SerializeField] private AnimationCurve valueCurve = AnimationCurve.Linear(0, 0, 1,1);
 
             #endregion
 
@@ -51,6 +51,8 @@ namespace Game
                     OnValueChanged_Event?.Invoke(value);
                 } 
             }
+
+            public float ValueFromCurve => valueCurve.Evaluate(Value);
             
             public float ValueBetweenRange(in float min, in float max) => Mathf.Lerp(min, max, Value);
 
@@ -74,7 +76,7 @@ namespace Game
             protected virtual void Reset()
             {
                 frame  = transform.parent;
-                handle = transform;
+                knob = transform;
             }
 
             protected abstract void SetKnobPosition(in float percentValue);
