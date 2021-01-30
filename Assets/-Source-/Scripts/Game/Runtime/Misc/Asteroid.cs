@@ -54,14 +54,14 @@ namespace Game
 
             onAsteroidDestroyed += ResourceManager.Instance.AddNeutronium;
 
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            currentColor = emptyColor;
+
             if (hasNeutronium)
             {
                 amountOfNeutronium = Random.Range(minNeutronium, maxNeutronium);
                 currentColor = Color.Lerp(emptyColor, fullColor, (float)amountOfNeutronium / maxNeutronium);
             }
-
-            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            currentColor = emptyColor;
 
             spriteRenderer.color = currentColor;
 

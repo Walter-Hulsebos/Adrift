@@ -13,13 +13,14 @@ namespace Game
         #region Exposed
 
         [SerializeField] private Color[] colourOptions;
+        [SerializeField] private float minSize = 3f, maxSize = 5f;
 
         #endregion
 
         private float size;
         private SpriteRenderer spriteRenderer;
 
-        private const float minSize = 3f, maxSize = 5f;
+        
         private const int minRot = 0, maxRot = 360;
 
         #endregion
