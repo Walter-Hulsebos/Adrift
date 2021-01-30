@@ -2,13 +2,23 @@ using System;
 
 namespace Game
 {
-    public interface IHealth
+    namespace Actors
     {
-        public int HealthPoints { get; }
+        namespace Health
+        {
+            public interface IHealth
+            {
+                public int HealthPoints { get; }
     
-        public void Kill();
+                /// <summary> Kills the Actor. </summary>
+                public void Kill();
         
-        public event Action<int> OnHealthChanged_Event;
-        public event Action OnDeath_Event;
+                /// <summary> Raised when the amount of health of the Actor changes. </summary>
+                public event Action<int> OnHealthChanged_Event;
+                
+                /// <summary> Raised when the Actor is killed. </summary>
+                public event Action OnDeath_Event;
+            }       
+        }
     }
 }
