@@ -3,11 +3,13 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using CommonGames.Utilities.Singletons;
+
 namespace Game
 {
     namespace Selection
     {
-        public sealed class SelectionManager : MonoBehaviour
+        public sealed class SelectionManager : Singleton<SelectionManager>
         {
             #region Fields
 
@@ -17,10 +19,10 @@ namespace Game
             
             private Controls PlayerControls { get; set; }
 
-            private ISelectable _currentHovering = null;
+            private IHover _currentHovering = null;
             private bool _isHoveringAnything;
 
-            private ISelectable _currentSelected = null;
+            private ISelect _currentSelected = null;
             private bool _isSelectingAnything;
 
             #endregion
@@ -45,10 +47,11 @@ namespace Game
             private void OnEnable()
             {
                 PlayerControls.Enable();
-                
-                PlayerControls.Cursor.Select.performed += _ => Debug.Log("Performed");
-                //PlayerControls.Cursor.Select.started += _ => Debug.Log("Started");
-                //PlayerControls.Cursor.Select.canceled += _ => Debug.Log("Canceled");
+
+                //PlayerControls.Cursor.Select.performed += _ => HandleSelection();
+
+                PlayerControls.Cursor.Select.started += _ => Select();
+                PlayerControls.Cursor.Select.canceled += _ => Deselect();
             }
 
             private void OnDisable()
@@ -68,21 +71,21 @@ namespace Game
 
                 if (Physics.Raycast(ray: __cursorRay, hitInfo: out RaycastHit __hit, maxDistance: Mathf.Infinity, layerMask: selectablesLayer))
                 {
-                    bool __hoveringAnySelectable = __hit.transform.TryGetComponent(component: out ISelectable __newSelectable);
+                    bool __hoveringAny = __hit.transform.TryGetComponent(component: out IHover __newHoverable);
 
-                    bool __hoveringDifferentSelectable = (_currentHovering != __newSelectable);
+                    bool __hoveringDifferent = (_currentHovering != __newHoverable);
 
-                    bool __exitedCurrentHovering = (!__hoveringAnySelectable || __hoveringDifferentSelectable);
+                    bool __exitedCurrentHovering = (!__hoveringAny || __hoveringDifferent);
 
                     if (__exitedCurrentHovering)
                     {
                         __HoverExit();
                     }
 
-                    if (__hoveringAnySelectable && __hoveringDifferentSelectable)
+                    if (__hoveringAny && __hoveringDifferent)
                     {
-                        __HoverEnter(__newSelectable);
-                    }   
+                        __HoverEnter(__newHoverable);
+                    }
                 }
                 else
                 {
@@ -101,9 +104,9 @@ namespace Game
                     _isHoveringAnything = false;
                 }
                 
-                void __HoverEnter(in ISelectable newSelectable)
+                void __HoverEnter(in IHover newHoverable)
                 {
-                    _currentHovering = newSelectable;
+                    _currentHovering = newHoverable;
 
                     _currentHovering.OnHoverEnter();
                     _currentHovering.IsHovered = true;
@@ -112,49 +115,31 @@ namespace Game
                 }
             }
 
-
-            private void HandleSelection()
-            {
-                void Select()
-                {
-                
-                }
-
-                void Deselect()
-                {
-                
-                }   
-            }
-
-            /*
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void HandlePressing()
+            private void Select()
             {
-                if (_isHoveringAnything && Input.GetMouseButtonDown(0))
-                {
-                    _currentSelected = _currentHovering;
+                if (!_isHoveringAnything) return; //Nothing to select.
+                
+                if (!(_currentHovering is ISelect __selectable)) return;
+                    
+                _currentSelected = __selectable;
+                _isSelectingAnything = true;
 
-                    if (_currentSelected.Deselect_Event != null)
-                    {
-
-                    }
-
-                    _currentSelected.Select_Event?.Invoke();
-                    _currentSelected.IsSelected = true;
-
-                    _isSelectingAnything = true;
-                }
-
-                if (_isSelectingAnything && Input.GetMouseButtonUp(0))
-                {
-                    _currentSelected.Deselect_Event?.Invoke();
-                    _currentSelected.IsSelected = false;
-                    _currentSelected = null;
-
-                    _isSelectingAnything = false;
-                }
+                _currentSelected.OnSelect();
+                _currentSelected.IsSelected = true;
             }
-            */
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private void Deselect()
+            {
+                if(!_isSelectingAnything) return; //Nothing to deselect.
+                
+                _currentSelected.OnDeselect();
+                _currentSelected.IsSelected = false;
+                
+                _currentSelected = null;
+                _isSelectingAnything = false;
+            }
 
             #endregion
 
