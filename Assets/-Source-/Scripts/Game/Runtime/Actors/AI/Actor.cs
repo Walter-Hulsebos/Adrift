@@ -31,7 +31,10 @@ namespace Game
         [SerializeField] protected Projectile projectilePrefab;
 
         private float _currThrust = 0;
-        private const float _MAX_THRUST = 1;
+        private float _maxThrust = 1;
+
+        protected float accelerationMultiplier = 1;
+        protected float maxSpeedMultiplier = 1;
 
         [SerializeField] protected float rotSpeed = 175;
         [SerializeField] protected float maxSpeed = 40;
@@ -106,8 +109,6 @@ namespace Game
         {
             if (IsRotating)
             {
-                //Debug.Log("ROT INPUT IS NOT 0");
-                
                 float __newRotation = ActorRotation - rotSpeed * RotPower * rotInput * Time.fixedDeltaTime;
                 __newRotation = NormalizeAngle(__newRotation);
          
@@ -116,21 +117,16 @@ namespace Game
             
             if (IsAccelerating)
             {
-                _currThrust = Mathf.Min(_currThrust + 2.5f * Time.fixedDeltaTime, _MAX_THRUST);
-                Vector2 __force = AimDir * (acceleration * _currThrust);
+                _currThrust = Mathf.Min(_currThrust + 2.5f * Time.fixedDeltaTime, _maxThrust);
+                Vector2 __force = AimDir * ((acceleration * accelerationMultiplier) * _currThrust);
 
-                //Vector2 newPos = (Vector2)transform.position + Vector2.up * 100;
-                
-                //Debug.Log($"New Pos = {newPos}");
-                
-                //transform.position = newPos;
-                
+                Body.gravityScale = 0;
                 Body.AddForce(force: __force, ForceMode2D.Force);
-                //Debug.Log("AddForce");
             }
             else
             {
                 _currThrust = 0;
+                //Body.gravityScale = 3;
             }
             
             //Clamp velocity

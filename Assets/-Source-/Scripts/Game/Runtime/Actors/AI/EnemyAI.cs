@@ -17,7 +17,7 @@ namespace Game
         
         [SerializeField] private float followRange;
         
-        [SerializeField] private float desiredGoalAngle = 30;
+        [SerializeField] private float desiredAngle = 30;
 
         #endregion
 
@@ -49,13 +49,13 @@ namespace Game
 
         protected virtual void SetupEnemy()
         {
-            maxSpeed = Random.Range(25f, 50f);
-            rotSpeed = Random.Range(100, 200);
+            maxSpeed = Random.Range(10f, 25f);
+            rotSpeed = Random.Range(150, 300);
             
             fireDelay = Random.Range(0.5f, 1.25f);
             
-            closeInRange = Random.Range(3, 10);
-            followRange = Random.Range(2000, 3500);
+            //closeInRange = Random.Range(10, 35);
+            followRange = Random.Range(20, 30);
         }
         
         protected virtual void Update()
@@ -64,21 +64,21 @@ namespace Game
             {
                 Vector3 __dir = DirectionToPlayer;
 
-                float __goalAng = Mathf.Atan2(__dir.y, __dir.x) * Mathf.Rad2Deg;
-                //__goalAng = (__goalAng / Mathf.PI) * 180;
+                float __goalAng = Mathf.Atan2(__dir.y, __dir.x); //* Mathf.Rad2Deg;
+                __goalAng = (__goalAng / Mathf.PI) * 180;
 
                 float __rotDiff = NormalizeAngle(__goalAng - ActorRotation + 90);
                 float __rotDiffAbs = Mathf.Abs(__rotDiff - 180);
 
-                bool aimingAtTarget = (__rotDiffAbs < desiredGoalAngle);
+                bool __aimingAtTarget = (__rotDiffAbs <= desiredAngle);
+                
+                bool __isAligned = (__rotDiffAbs < 10);
                 
                 float __distSqr = DistanceToPlayerSqr;
 
-                bool __isAligned = (__rotDiffAbs < 40);
-                
-                bool __inFollowRange = (__distSqr < FollowRangeSqr);
-                bool __inCloseInRange = (__distSqr < CloseInRangeSqr);
-                bool __inAttackRange = (__distSqr < AttackRangeSqr);
+                bool __insideFollowRange = (__distSqr < FollowRangeSqr);
+                //bool __inCloseInRange     = (__distSqr < CloseInRangeSqr);
+                bool __inAttackRange      = (__distSqr < AttackRangeSqr);
 
                 __Aiming();
                 __Following();
@@ -86,7 +86,7 @@ namespace Game
                 
                 void __Aiming()
                 {
-                    if (!aimingAtTarget)
+                    if (!__aimingAtTarget)
                     {
                         //Debug.Log("__Aiming A");
                         
@@ -101,31 +101,24 @@ namespace Game
                     }
                     else
                     {
-                        //Debug.Log("__Aiming B");
                         rotInput = 0;
                     }
                 }
                 void __Following()
                 {
-                    if (__isAligned && __inFollowRange) //Align up first, then follow.
+                    //__isAligned && 
+                    if (!__insideFollowRange) //Align up first, then follow.
                     {
                         thrustInput = 1;
                     }
                     else
                     {
-                        thrustInput = 0;
+                        thrustInput = __insideFollowRange ? 1 : 0;
+
+                        accelerationMultiplier = __insideFollowRange ? 5f : 1;
                     }
                     
-                    /*
-                    if((__distSqr > FollowRangeSqr && __rotDiffAbs < 40))
-                    {
-                        thrustInput = 1;
-                    }
-                    else
-                    {
-                        thrustInput = inCloseInRange ? 0 : 1;
-                    }
-                    */
+                    maxSpeedMultiplier = __insideFollowRange ? 0.25f : 1;
                 }
                 void __Shooting()
                 {
