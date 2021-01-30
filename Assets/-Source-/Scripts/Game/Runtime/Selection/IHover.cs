@@ -5,14 +5,11 @@ namespace Game
     namespace Selection
     {
         /// <summary>
-        /// Selectable Trait.
+        /// Hoverable Trait.
         /// </summary>
-        public interface ISelectable
+        public interface IHover
         {
             #region Events
-
-            event Action Select_Event;
-            event Action Deselect_Event;
 
             event Action HoverEnter_Event;
             event Action HoverExit_Event;
@@ -22,21 +19,10 @@ namespace Game
             #region Properties
 
             bool IsHovered { get; set; }
-            bool IsSelected { get; set; }
 
             #endregion
 
             #region Methods
-
-            /// <summary>
-            /// Called when selected.
-            /// </summary>
-            void OnSelect();
-
-            /// <summary>
-            /// Called when deselected.
-            /// </summary>
-            void OnDeselect();
 
             /// <summary>
             /// Called when hovered over.
