@@ -1,8 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
+
+using JetBrains.Annotations;
+
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 
 namespace Game
 {
@@ -10,33 +13,50 @@ namespace Game
     {
         #region Fields
 
+        public bool IsActivated => true;
+        
         [field: SerializeField]
         public Rigidbody2D Body { get; protected set; }
         
         private PolygonCollider2D _collider;
+
+        #if ODIN_INSPECTOR
+        [AssetsOnly]
+        #endif
+        [SerializeField] protected Projectile projectilePrefab;
         
         //[field: SerializeField]
         //public PolygonCollider2D Collider { get; protected set; }
-        
+
+        private float _currThrust = 0;
         private const float _MAX_THRUST = 1;
 
-        [SerializeField] protected float rotSpeed = 320;
+        [SerializeField] protected float rotSpeed = 175;
         [SerializeField] protected float maxSpeed = 40;
         [SerializeField] protected float acceleration = 10;
 
-        private const float _FIRE_DELAY = 0.11f;
+        [SerializeField] protected float fireDelay = 0.4f;
         
         private float _nextFire = 0;
-        private float _nextRegen = 0;
-        private float _nextEnvDamage = 0;
+
+        #region Inputs
+    
+        protected float rotInput = 0;
+        protected float thrustInput = 0;
+
+        #endregion
         
         #endregion
 
         #region Properties
         
-        public Vector3 Position => Body.transform.position;
+        [PublicAPI]
+        public Vector2 ActorPosition => Body.transform.position;
 
-        public bool IsAccelerating => (_thrustInput > 0);
+        [PublicAPI] 
+        public float ActorRotation => Body.rotation;
+
+        public bool IsAccelerating => (thrustInput > 0);
         
         /// <summary> Direction the actor is traveling in. </summary>
         [PublicAPI]
@@ -48,6 +68,9 @@ namespace Game
 
         /// <summary> Current speed relative to the max speed. </summary>
         public float VelDelta => (Body.velocity.magnitude / maxSpeed);
+        
+        
+        protected virtual float RotPower => (IsAccelerating ? 0.3f : 1.0f);
 
         #endregion
 
@@ -63,6 +86,70 @@ namespace Game
         {
             Body ??= GetComponent<Rigidbody2D>();
             _collider ??= Body.GetComponent<PolygonCollider2D>();
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            Move();
+        }
+
+        private void Move()
+        {
+            if (rotInput != 0)
+            {
+                float __newRotation = ActorRotation - rotSpeed * RotPower * rotInput * Time.fixedDeltaTime;
+                __newRotation = NormalizeAngle(__newRotation);
+                
+                Body.MoveRotation(angle: __newRotation);
+            }
+            
+            if (IsAccelerating)
+            {
+                _currThrust = Mathf.Min(_currThrust + 2.4f * Time.fixedDeltaTime, _MAX_THRUST);
+                Body.AddForce(force: AimDir * (acceleration * _currThrust), ForceMode2D.Impulse);
+            }
+            else
+            {
+                _currThrust = 0;
+            }
+            
+            //Clamp velocity
+            float __clampedVelocity = Body.velocity.magnitude.Clamp(min: 0, max: maxSpeed);
+
+            Body.velocity = VelDir * __clampedVelocity;
+        }
+
+        protected virtual void Fire()
+        {
+            //if (GameManager.IsGamePaused) return;
+
+            if (_nextFire < Time.time )
+            {
+                Vector2 __bulletSpawnPos = ActorPosition + AimDir * 2.5f;
+                
+                Vector3 __bulletDirection = Quaternion.Euler(0, 0, z: UnityEngine.Random.Range(-5, 5)) * AimDir;
+
+                float __angle = Mathf.Atan2(__bulletDirection.y, __bulletDirection.x) * Mathf.Rad2Deg;
+                Quaternion __rotation = Quaternion.AngleAxis(__angle, Vector3.forward);
+                
+                Instantiate(original: projectilePrefab, position: __bulletSpawnPos, rotation: __rotation);
+
+                //TODO: Muzzle and Sound.
+                //MuzzleFlash();
+                //playSound(0, 0.5f);
+
+                _nextFire = fireDelay + Time.time;
+            }
+        }
+        
+        protected static float NormalizeAngle(float angle)
+        {
+            angle = (angle + 180) % 360;
+            if (angle < 0)
+            {
+                angle += 360;
+            }
+            return angle - 180;
         }
 
         #endregion
