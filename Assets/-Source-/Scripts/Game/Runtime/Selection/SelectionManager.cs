@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using CommonGames.Utilities.Singletons;
+using JetBrains.Annotations;
 
 namespace Game
 {
@@ -26,6 +27,15 @@ namespace Game
             private bool _isSelectingAnything;
 
             #endregion
+
+            #region Properties
+
+            [PublicAPI]
+            public Vector2 MousePosition => PlayerControls.Cursor.Position.ReadValue<Vector2>();
+            [PublicAPI]
+            public Ray MouseRay => selectionCamera.ScreenPointToRay(pos: MousePosition);
+
+            #endregion
             
             #region Methods
 
@@ -44,18 +54,20 @@ namespace Game
                 selectionCamera ??= Camera.main;
             }
 
-            private void OnEnable()
+            protected override void OnEnable()
             {
+                base.OnEnable();
+                
                 PlayerControls.Enable();
-
-                //PlayerControls.Cursor.Select.performed += _ => HandleSelection();
-
+                
                 PlayerControls.Cursor.Select.started += _ => Select();
                 PlayerControls.Cursor.Select.canceled += _ => Deselect();
             }
 
-            private void OnDisable()
+            protected override void OnDisable()
             {
+                base.OnDisable();
+                
                 PlayerControls.Disable();
             }
 
@@ -67,9 +79,9 @@ namespace Game
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void HandleHovering()
             {
-                Ray __cursorRay = selectionCamera.ScreenPointToRay(pos: Mouse.current.position.ReadValue());
+                //Ray __cursorRay = selectionCamera.ScreenPointToRay(pos: Mouse.current.position.ReadValue());
 
-                if (Physics.Raycast(ray: __cursorRay, hitInfo: out RaycastHit __hit, maxDistance: Mathf.Infinity, layerMask: selectablesLayer))
+                if (Physics.Raycast(ray: MouseRay, hitInfo: out RaycastHit __hit, maxDistance: Mathf.Infinity, layerMask: selectablesLayer))
                 {
                     bool __hoveringAny = __hit.transform.TryGetComponent(component: out IHover __newHoverable);
 

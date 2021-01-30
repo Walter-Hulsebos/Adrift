@@ -7,6 +7,13 @@ namespace Game
     {
         public abstract class BaseSelectable : MonoBehaviour, ISelect
         {
+			#region Manager
+
+			protected static SelectionManager SelectionManager => SelectionManager.Instance;
+			protected static bool SelectionManagerExists => SelectionManager.InstanceExists;
+			
+			#endregion
+			
             #region Events
     
             public event Action Select_Event;
@@ -31,6 +38,23 @@ namespace Game
 			
 			public virtual void OnHoverEnter() => HoverEnter_Event?.Invoke();
 			public virtual void OnHoverExit() => HoverExit_Event?.Invoke();
+
+			protected void Update()
+			{
+				if (IsHovered)
+				{
+					OnHoverUpdate();
+				}
+
+				if (IsSelected)
+				{
+					OnSelectUpdate();
+				}
+			}
+
+			protected virtual void OnHoverUpdate() { }
+
+			protected virtual void OnSelectUpdate() { }
 			
 			#endregion
         }

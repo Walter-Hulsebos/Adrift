@@ -54,14 +54,11 @@ namespace Game
             
             public float ValueBetweenRange(in float min, in float max) => Mathf.Lerp(min, max, Value);
 
-            private static SelectionManager SelectionManager => SelectionManager.Instance;
-
             protected Vector3 MouseRelativeOnPlane
             {
                 get
                 {
-                    Transform __frame = frame;
-                    Plane __plane = new Plane(inPoint: __frame.position, inNormal: __frame.up);
+                    Plane __plane = new Plane(inPoint: frame.position, inNormal: frame.forward);
                     Ray __ray = SelectionManager.MouseRay;
 
                     return __plane.Raycast(ray: __ray, enter: out float __distance) 
