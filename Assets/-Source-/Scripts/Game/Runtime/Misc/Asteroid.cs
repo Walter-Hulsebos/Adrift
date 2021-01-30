@@ -30,11 +30,10 @@ namespace Game
         private bool isTurning;
         private float turnSpeed;
         private float health;
-        private float size;
 
         private int minNeutronium = 10, maxNeutronium = 150;
         private const float minSize = 0.5f, maxSize = 1.5f;
-        private const int minRot = 0, maxRot = 260;
+        private const int minRot = 0, maxRot = 360;
         private const int minTurnSpeed = 25, maxTurnSpeed = 60;
         private const int minHealth = 100, maxHealth = 120;
 
@@ -55,14 +54,14 @@ namespace Game
 
             onAsteroidDestroyed += ResourceManager.Instance.AddNeutronium;
 
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            currentColor = emptyColor;
+
             if (hasNeutronium)
             {
                 amountOfNeutronium = Random.Range(minNeutronium, maxNeutronium);
                 currentColor = Color.Lerp(emptyColor, fullColor, (float)amountOfNeutronium / maxNeutronium);
             }
-
-            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            currentColor = emptyColor;
 
             spriteRenderer.color = currentColor;
 
@@ -70,7 +69,6 @@ namespace Game
 
             transform.localScale = Vector3.one * size;
             transform.localRotation = new Quaternion(0, 0, Random.Range(minRot, maxRot), 0);
-            turnSpeed = Random.Range(minTurnSpeed, maxTurnSpeed);
 
             isTurning = (Random.Range(0, 2) != 0);
 
