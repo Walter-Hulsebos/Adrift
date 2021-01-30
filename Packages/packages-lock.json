@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.common-games.utilities.singletons": {
+      "version": "https://github.com/Walter-Hulsebos/Utilities.Singletons.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "dee23fd3048b7d4e770256da8b58816d075e1427"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

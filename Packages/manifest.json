@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.common-games.utilities.singletons": "https://github.com/Walter-Hulsebos/Utilities.Singletons.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.cinemachine": "2.6.3",
     "com.unity.ide.rider": "2.0.7",

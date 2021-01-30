@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using CommonGames.Utilities.Singletons;
+using CGTK.Utilities.Singletons;
 using JetBrains.Annotations;
 
 namespace Game

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CommonGames.Utilities.Singletons;
+using CGTK.Utilities.Singletons;
 
 namespace Game
 {
