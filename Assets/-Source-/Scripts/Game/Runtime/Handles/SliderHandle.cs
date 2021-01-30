@@ -34,9 +34,15 @@ namespace Game
             private float AmountMoved
             {
                 get => amountMoved;
-                set => amountMoved = value.Clamp(min: 0f, max: range);
+                set
+                {
+                    amountMoved = value.Clamp(min: 0f, max: range);
+
+                    Value = (AmountMoved / range);
+                    //OnValueChanged();
+                }
             }
-            
+
             private float AmountMovedPercentage => (AmountMoved / range);
 
             #endregion
@@ -82,24 +88,16 @@ namespace Game
                 float __dot = Vector3.Dot(frame.up, __mousePosOnAxis - knob.position); // dot product is -1 when vectors point in opposite directions
             
                 AmountMoved += (__distance * (__dot < 0f ? -1f : 1f));
-                
-                // set the position of the transform based on position
-                SetPositionBasedOnAmountMoved();
             }
 
             protected override void SetKnobPosition(in float percentValue)
             {
-                AmountMoved = Mathf.Lerp(0f, range, percentValue);
-            }
-            
-            private void SetPositionBasedOnAmountMoved()
-            {
-                Vector3 __minPosition = (Vector3.up * this.min);
-                knob.localPosition = __minPosition + (Vector3.up * AmountMoved);
+                //AmountMoved = Mathf.Lerp(0f, range, percentValue);
                 
-                OnValueChanged(AmountMovedPercentage);
+                Vector3 __minPosition = (Vector3.up * this.min);
+                knob.localPosition = __minPosition + (Vector3.up * amountMoved);
             }
-            
+
             private Vector3 ClosestUpAxisPosition(in Vector3 point)
             {
                 Ray __up = new Ray(origin: frame.position, direction: frame.up);

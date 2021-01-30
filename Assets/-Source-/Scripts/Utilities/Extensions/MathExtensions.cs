@@ -7,6 +7,9 @@ public static class MathExtensions
 	
 	public static float Clamp01(this float value)
 		=> Mathf.Clamp01(value: value);
-	
+
+	public static float Lerp(this float t, in float from, in float to)
+		=> Mathf.Lerp(from, to, t);
+
 	//public static float Lerp(this (float min, float max), in float t) => 
 }

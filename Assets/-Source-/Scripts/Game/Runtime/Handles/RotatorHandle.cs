@@ -11,12 +11,12 @@ namespace Game
         {
             #region Fields
 
+            [SerializeField] private bool noCap;
+            
             [Tooltip("How far back the rotator's minimum rotation is")]
             [SerializeField] private float min = 0;
             //[SerializeField] private float max = 0;
 
-            [SerializeField] private bool noCap;
-            
             [Tooltip("How far past the minimum position the slider can move")]
             [Min(0)]
             [SerializeField] private float range = 360;

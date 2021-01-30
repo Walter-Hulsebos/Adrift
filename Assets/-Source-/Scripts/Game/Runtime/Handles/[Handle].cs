@@ -48,11 +48,13 @@ namespace Game
                     _internalValue = value;
 
                     SetKnobPosition(value);
-                    OnValueChanged_Event?.Invoke(value);
+                    OnValueChanged_Event?.Invoke(ValueFromCurve);
                 } 
             }
 
             public float ValueFromCurve => valueCurve.Evaluate(Value);
+            
+            public float ValueFromCurveBetweenRange(in float min, in float max) => Mathf.Lerp(min, max, ValueFromCurve);
             
             public float ValueBetweenRange(in float min, in float max) => Mathf.Lerp(min, max, Value);
 
@@ -81,9 +83,9 @@ namespace Game
 
             protected abstract void SetKnobPosition(in float percentValue);
 
-            protected virtual void OnValueChanged(in float value)
+            protected virtual void OnValueChanged()
             {
-                OnValueChanged_Event?.Invoke(value);
+                OnValueChanged_Event?.Invoke(ValueFromCurve);
             }
 
             #endregion
