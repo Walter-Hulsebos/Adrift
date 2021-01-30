@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -14,7 +15,7 @@ namespace Game
         
         [SerializeField] private float attackRange;
         
-        [SerializeField] private float thrustRange;
+        [SerializeField] private float followRange;
         
         [SerializeField] private float desiredGoalAngle = 30;
 
@@ -36,7 +37,7 @@ namespace Game
         
         
         private float AttackRangeSqr => (attackRange * attackRange);
-        private float ThrustRangeSqr => (thrustRange * thrustRange);
+        private float FollowRangeSqr => (followRange * followRange);
         private float CloseInRangeSqr => (closeInRange * closeInRange);
 
         #endregion
@@ -51,7 +52,7 @@ namespace Game
             fireDelay = Random.Range(0.5f, 1.25f);
             
             closeInRange = Random.Range(3, 10);
-            thrustRange = Random.Range(20, 35);
+            followRange = Random.Range(200, 350);
         }
         
         protected virtual void Update()
@@ -63,20 +64,26 @@ namespace Game
                 float __goalAng = Mathf.Atan2(__dir.y, __dir.x);
                 __goalAng = (__goalAng / Mathf.PI) * 180;
 
-                float __diff = NormalizeAngle(__goalAng - ActorRotation + 90);
-                float __diffAbs = Mathf.Abs(__diff - 180);
+                float __rotDiff = NormalizeAngle(__goalAng - ActorRotation + 90);
+                float __rotDiffAbs = Mathf.Abs(__rotDiff - 180);
                 
                 float __distSqr = DistanceToPlayerSqr;
 
+                bool aligned = (__rotDiffAbs < 40);
+                
+                bool inFollowRange = (__distSqr < FollowRangeSqr);
+                bool inCloseInRange = (__distSqr < CloseInRangeSqr);
+                bool inAttackRange = (__distSqr < AttackRangeSqr);
+
                 __Aiming();
-                __Thrusting();
+                __Following();
                 __Shooting();
                 
                 void __Aiming()
                 {
-                    if (__diffAbs > desiredGoalAngle)
+                    if (__rotDiffAbs > desiredGoalAngle)
                     {
-                        if (__diff > 0)
+                        if (__rotDiff > 0)
                         {
                             rotInput = 1;
                         }
@@ -90,20 +97,31 @@ namespace Game
                         rotInput = 0;
                     }
                 }
-                void __Thrusting()
+                void __Following()
                 {
-                    if((__distSqr > ThrustRangeSqr && __diffAbs < 40 ))
+                    if (inFollowRange && aligned) //Align up first, then follow.
                     {
                         thrustInput = 1;
                     }
                     else
                     {
-                        thrustInput = (__distSqr < CloseInRangeSqr) ? 1 : 0;
+                        thrustInput = 0;
                     }
+                    
+                    /*
+                    if((__distSqr > FollowRangeSqr && __rotDiffAbs < 40))
+                    {
+                        thrustInput = 1;
+                    }
+                    else
+                    {
+                        thrustInput = inCloseInRange ? 0 : 1;
+                    }
+                    */
                 }
                 void __Shooting()
                 {
-                    if (__diffAbs < 40 && __distSqr < AttackRangeSqr)
+                    if(inAttackRange && aligned) //Align up first, then shoot.
                     {
                         Fire();
                     }    
