@@ -25,8 +25,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "d6c774c7-f969-4b64-9ff0-aabc3fad6476",
-                    "path": "<Pointer>/position",
+                    "id": "8bfee2a6-8943-4842-a31e-6fa1f43a94e1",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
