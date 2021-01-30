@@ -24,10 +24,13 @@ namespace Game
         #region Properties
 
         private static PlayerController Player => PlayerController.Instance;
-        private static bool PlayerActive => PlayerController.InstanceExists;
-
+        //private static bool PlayerActive => PlayerController.InstanceExists;
+        private static bool PlayerActive = true;
+        
         private static Rigidbody2D PlayerBody => Player.GetComponent<Rigidbody2D>();
-        private static Vector2 PlayerPosition => PlayerBody.transform.position;
+        //[field: SerializeField] private Rigidbody2D PlayerBody { get; set; }
+        
+        private Vector2 PlayerPosition => PlayerBody.position;
 
         private Vector2 VectorToPlayer => (PlayerPosition - this.ActorPosition);
         private Vector2 DirectionToPlayer => VectorToPlayer.normalized;
@@ -52,7 +55,7 @@ namespace Game
             fireDelay = Random.Range(0.5f, 1.25f);
             
             closeInRange = Random.Range(3, 10);
-            followRange = Random.Range(200, 350);
+            followRange = Random.Range(2000, 3500);
         }
         
         protected virtual void Update()
@@ -61,8 +64,8 @@ namespace Game
             {
                 Vector3 __dir = DirectionToPlayer;
 
-                float __goalAng = Mathf.Atan2(__dir.y, __dir.x);
-                __goalAng = (__goalAng / Mathf.PI) * 180;
+                float __goalAng = Mathf.Atan2(__dir.y, __dir.x) * Mathf.Rad2Deg;
+                //__goalAng = (__goalAng / Mathf.PI) * 180;
 
                 float __rotDiff = NormalizeAngle(__goalAng - ActorRotation + 90);
                 float __rotDiffAbs = Mathf.Abs(__rotDiff - 180);
@@ -71,11 +74,11 @@ namespace Game
                 
                 float __distSqr = DistanceToPlayerSqr;
 
-                bool aligned = (__rotDiffAbs < 40);
+                bool __isAligned = (__rotDiffAbs < 40);
                 
-                bool inFollowRange = (__distSqr < FollowRangeSqr);
-                bool inCloseInRange = (__distSqr < CloseInRangeSqr);
-                bool inAttackRange = (__distSqr < AttackRangeSqr);
+                bool __inFollowRange = (__distSqr < FollowRangeSqr);
+                bool __inCloseInRange = (__distSqr < CloseInRangeSqr);
+                bool __inAttackRange = (__distSqr < AttackRangeSqr);
 
                 __Aiming();
                 __Following();
@@ -104,16 +107,12 @@ namespace Game
                 }
                 void __Following()
                 {
-                    if (inFollowRange && aligned) //Align up first, then follow.
+                    if (__isAligned && __inFollowRange) //Align up first, then follow.
                     {
-                        //Debug.Log("__Following A");
-                        
                         thrustInput = 1;
                     }
                     else
                     {
-                        //Debug.Log("__Following B");
-                        
                         thrustInput = 0;
                     }
                     
@@ -130,10 +129,8 @@ namespace Game
                 }
                 void __Shooting()
                 {
-                    if(inAttackRange && aligned) //Align up first, then shoot.
+                    if (__isAligned && __inAttackRange) //Align up first, then shoot.
                     {
-                        //Debug.Log("__Shooting A");
-                        
                         Fire();
                     }    
                 }

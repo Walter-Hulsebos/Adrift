@@ -53,7 +53,10 @@ namespace Game
         #region Properties
         
         [PublicAPI]
-        public Vector2 ActorPosition => Body.transform.position;
+        public Transform ActorTransform => Body.transform;
+        
+        [PublicAPI]
+        public Vector2 ActorPosition => Body.position;
 
         [PublicAPI] 
         public float ActorRotation => Body.rotation;
@@ -70,7 +73,7 @@ namespace Game
 
         /// <summary> Direction the actor is aimed in. </summary>
         [PublicAPI]
-        public Vector2 AimDir => Body.transform.up;
+        public Vector2 AimDir => ActorTransform.up;
 
         /// <summary> Current speed relative to the max speed. </summary>
         public float VelDelta => (Body.velocity.magnitude / maxSpeed);
@@ -107,18 +110,22 @@ namespace Game
                 
                 float __newRotation = ActorRotation - rotSpeed * RotPower * rotInput * Time.fixedDeltaTime;
                 __newRotation = NormalizeAngle(__newRotation);
-                
-                
-                Body.MoveRotation(angle: 30);
-                //Debug.Log("MoveRotation");
+         
+                Body.MoveRotation(angle: __newRotation);
             }
             
             if (IsAccelerating)
             {
-                _currThrust = Mathf.Min(_currThrust * Time.fixedDeltaTime, _MAX_THRUST);
+                _currThrust = Mathf.Min(_currThrust + 2.5f * Time.fixedDeltaTime, _MAX_THRUST);
                 Vector2 __force = AimDir * (acceleration * _currThrust);
+
+                //Vector2 newPos = (Vector2)transform.position + Vector2.up * 100;
                 
-                Body.AddForce(force: __force, ForceMode2D.Impulse);
+                //Debug.Log($"New Pos = {newPos}");
+                
+                //transform.position = newPos;
+                
+                Body.AddForce(force: __force, ForceMode2D.Force);
                 //Debug.Log("AddForce");
             }
             else

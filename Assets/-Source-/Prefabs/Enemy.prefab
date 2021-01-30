@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7548949721397033526}
   - component: {fileID: 7548949721397033534}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,13 +130,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 7
+  m_Constraints: 0
 --- !u!114 &7548949721397033534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +149,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa59abb30234904a86eccc951674b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   <Body>k__BackingField: {fileID: 7548949721397033526}
   projectilePrefab: {fileID: 0}
   rotSpeed: 175
@@ -157,5 +166,6 @@ MonoBehaviour:
   fireDelay: 0.4
   closeInRange: 0
   attackRange: 0
-  thrustRange: 0
+  followRange: 0
   desiredGoalAngle: 30
+  <PlayerBody>k__BackingField: {fileID: 0}
