@@ -12,7 +12,7 @@ namespace Game
 
         [SerializeField] private byte team = 0;
 
-        [SerializeField] private int damage = 5;
+        [SerializeField] private int damage = 10;
 
         public Rigidbody2D body;
 
@@ -32,17 +32,35 @@ namespace Game
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.TryGetComponent(component: out Health __health))
+            Debug.Log($"Collided With {other.name}");
+            
+            bool __hasShield = other.TryGetComponent(component: out PlayerShield __shield);
+            if (__hasShield)
             {
-                if (this.team != __health.team)
+                if (this.team != __shield.team)
                 {
-                    __health -= damage;   
+                    if (__shield.team == 1) ScreenshakeManager.Instance.ShakeHit(0);
+
+                    __shield.Damage(damage);
                 }
             }
 
-            //TODO: Call explosion manager.
+            if (__hasShield && (__shield.currentShieldHealth > 0))
+            {
+                Destroy(this.gameObject);
+                return;
+            }
             
-            Destroy(this);
+            if (other.TryGetComponent(component: out Health __health))
+            {
+                if (this.team != __health.team)
+                {
+                    if (__health.team == 1) ScreenshakeManager.Instance.ShakeHit(1);
+
+                    __health -= damage;   
+                }
+            }
+            Destroy(this.gameObject);
         }
 
         #endregion

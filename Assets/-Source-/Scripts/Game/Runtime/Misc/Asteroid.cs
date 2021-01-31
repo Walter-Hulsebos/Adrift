@@ -4,8 +4,22 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Asteroid : MonoBehaviour, IHittable
+    public class Asteroid : MonoBehaviour, IActor
     {
+        public Vector2 ActorPosition => transform.position;
+
+        [SerializeField] private GameObject reticle;
+        
+        public void Target()
+        {
+            reticle.SetActive(true);
+        }
+
+        public void Untarget()
+        {
+            reticle.SetActive(false);
+        }
+        
         #region Variables
 
         #region Public
@@ -99,17 +113,12 @@ namespace Game
 
         #region Public
 
-        public void Hit(float damage)
+        public void Kill()
         {
-            health -= damage;
-
-            if(health < 0)
-            {
-                spriteRenderer.enabled = false;
-                EffectManager.Instance.SpawnExplosion(transform.position, currentColor);
-                onAsteroidDestroyed?.Invoke(amountOfNeutronium);
-                Destroy(gameObject);
-            }
+            spriteRenderer.enabled = false;
+            EffectManager.Instance.SpawnExplosion(transform.position, currentColor);
+            onAsteroidDestroyed?.Invoke(amountOfNeutronium);
+            Destroy(gameObject);
         }
 
         #endregion

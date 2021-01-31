@@ -129,5 +129,19 @@ namespace Game
             }
         }
 
+        [SerializeField] private GameObject reticle;
+        
+        public override void Target()
+        {
+            base.Target();
+            
+            reticle.SetActive(true);
+        }
+        public override void Untarget()
+        {
+            base.Untarget();
+            
+            reticle.SetActive(false);
+        }
     }
 }

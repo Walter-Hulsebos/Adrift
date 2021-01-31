@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 737195542195415102}
   - component: {fileID: 737195542195415103}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: trail_short_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,10 @@ GameObject:
   - component: {fileID: 737195543372683452}
   - component: {fileID: 737195543372683450}
   - component: {fileID: 681908472}
-  m_Layer: 11
+  - component: {fileID: -913368307276677917}
+  - component: {fileID: -290726244403251615}
+  - component: {fileID: -5870636101873267510}
+  m_Layer: 14
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,11 +325,61 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: HealthPoints
-      Entry: 3
+      Entry: 4
       Data: 100
   team: 1
-  multiple: 10
+  multiple: 25
+  credits:
+    sceneAsset: {fileID: 102900000, guid: c3ff0623e590a134db618833a6ffafc7, type: 3}
+    scenePath: Assets/-Source-/Scenes/Credits.unity
   healthPerSecond: 2
+--- !u!114 &-913368307276677917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737195543372683440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96facf02018ba4aa15f8823dec723c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 1
+  currentShieldHealth: 50
+  maxShieldHealth: 50
+--- !u!114 &-290726244403251615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737195543372683440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5415f1d184e94342aab5abe11a302c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targeter: {fileID: -5870636101873267510}
+  projectilePrefab: {fileID: 4675886071059350336, guid: 8228f62a1b41514489e8c263ab20a229, type: 3}
+  <Body>k__BackingField: {fileID: 737195543372683450}
+--- !u!114 &-5870636101873267510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737195543372683440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2453c785de9ebfb428609a0aa3b5cd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 6711
+  <LockTarget>k__BackingField: 0
 --- !u!1 &737195543854598014
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 737195543854598015}
   - component: {fileID: 737195543854598012}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: trail_long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 737195543931728081}
   - component: {fileID: 737195543931728094}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: trail_short_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

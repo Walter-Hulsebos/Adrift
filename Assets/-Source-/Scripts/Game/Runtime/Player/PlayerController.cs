@@ -5,6 +5,8 @@ using CGTK.Utilities.Singletons;
 
 namespace Game
 {
+    using Actors.Health;
+
     public class PlayerController : Singleton<PlayerController>
     {
         #region Variables
@@ -75,7 +77,14 @@ namespace Game
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            onHitObstacle?.Invoke(currentSpeed);
+            Debug.Log("Hit object!");
+            if(TryGetComponent(component: out Health __health))
+            {
+                __health -= Mathf.RoundToInt(10 * (currentSpeed / maxSpeed));
+            }
+
+            VoiceManager.Instance.PlayClip(5);
+            onHitObstacle?.Invoke(currentSpeed/maxSpeed);
         }
 
         #endregion

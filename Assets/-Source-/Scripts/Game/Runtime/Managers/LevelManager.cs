@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using CommonGames.Utilities.CGTK;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private int requiredNeutronium = 150;
+        [SerializeField] private SceneReference credits;
+        [SerializeField] private GameObject scanner;
+
+        public int requiredNeutronium = 150;
         [SerializeField] private TMP_Text text;
         int currentOption = 0;
         int selectedOption = -1;
@@ -47,15 +52,22 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            ResourceManager.Instance.onReceivedNeutronium += OnReceiveNeutronium;
             SystemManager.Instance.GenerateLevel(-1, -1, -1, -1, 0);
+        }
+
+        private void Update()
+        {
+            if(ResourceManager.Instance.storedNeutronium >= requiredNeutronium && !allowJump)
+            {
+                OnReceiveNeutronium(ResourceManager.Instance.storedNeutronium);
+            }
         }
 
         public void OnReceiveNeutronium(int currentNeutronium)
         {
             if(currentNeutronium >= requiredNeutronium)
             {
-                //TODO: play audio notifying player that they now have enough neutronium.
+                VoiceManager.Instance.PlayClip(4);
                 allowJump = true;
 
                 int[] optionsToActivate = options[currentOption];
@@ -69,10 +81,29 @@ namespace Game
             }
         }
 
+        [ContextMenu("Jump")]
         public void Jump()
         {
+            Debug.Log("Test");
+
+            if(!allowJump)
+            {
+                Debug.Log("Not ready");
+                VoiceManager.Instance.PlayClip(8);
+
+                return;
+            }
+
             if(selectedOption != -1)
             {
+                if (selectedOption == 14)
+                {
+                    Debug.Log("Game end!");
+                    
+                    StartCoroutine(Victory());
+                    return;
+                }
+
                 ResourceManager.Instance.RemoveNeutronium(requiredNeutronium);
 
                 if(ResourceManager.Instance.storedNeutronium < 0) //Shouldnt be possible but just to be safe.
@@ -80,33 +111,23 @@ namespace Game
                     ResourceManager.Instance.storedNeutronium = 0;
                 }
 
-                currentOption = selectedOption;
-                selectedOption = -1;
-
-                text.color = stateColours[0];
-                text.text = stateMessages[0];
+                
 
                 //TODO: Jump (I.e. start sequence and refresh level) & play audio
 
                 //TODO: ADD DELAY
-                SystemManager.Instance.GenerateLevel();
+                StartCoroutine(Jumping());
+                Debug.Log("Jumping!");
             }
             else
             {
-                //TODO: Play audio notifying user that no selection has been made.
+                Debug.Log("No Destination");
+                VoiceManager.Instance.PlayClip(9);
             }
         }
 
         public void SelectOption(int option)
         {
-            if(option == 14)
-            {
-                Debug.Log("Game end!");
-
-                //Load credits scene after audio congratulating player played.
-                throw new System.NotImplementedException();
-            }
-
             int[] optionsToActivate = options[currentOption];
             foreach (int i in optionsToActivate)
             {
@@ -117,6 +138,61 @@ namespace Game
             text.text = stateMessages[2];
 
             selectedOption = option;
+            VoiceManager.Instance.PlayClip(13);
+        }
+
+        IEnumerator Jumping()
+        {
+            scanner.SetActive(false);
+
+            VoiceManager.Instance.PlayClip(6);
+
+            //TODO: Screenshake
+            while(VoiceManager.Instance.IsPlaying)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(2);
+
+            SystemManager.Instance.GenerateLevel();
+            scanner.SetActive(true);
+            VoiceManager.Instance.PlayClip(1);
+
+            while (VoiceManager.Instance.IsPlaying)
+            {
+                yield return null;
+            }
+
+            if(SystemManager.Instance.hasEnemies)
+            {
+                VoiceManager.Instance.PlayClip(7);
+            }
+
+            currentOption = selectedOption;
+            selectedOption = -1;
+            allowJump = false;
+
+            text.color = stateColours[0];
+            text.text = stateMessages[0];
+        }
+
+        IEnumerator Victory()
+        {
+            while(VoiceManager.Instance.IsPlaying)//Check if player finished playing audio.
+            {
+                yield return new WaitForSeconds(1);
+            }
+
+            VoiceManager.Instance.PlayClip(15);
+
+            while (VoiceManager.Instance.IsPlaying)//Check if player finished playing audio.
+            {
+                yield return null;
+            }
+
+            QuitGame.Instance.Quit();
+            SceneManager.LoadScene(credits);
         }
     }
 }

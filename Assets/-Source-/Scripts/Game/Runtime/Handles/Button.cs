@@ -13,6 +13,10 @@ namespace Game
 
             [SerializeField] private new Renderer renderer;
 
+            [SerializeField] private Color 
+                highlightedColor = Color.red, 
+                defaultColor = Color.white;
+
             #endregion
 
             #region Properties
@@ -35,35 +39,37 @@ namespace Game
                 renderer ??= GetComponent<Renderer>();
             }
 
-                #region Selectable
+            #region Selectable
 
-                public override void OnHoverEnter()
-                {
-                    base.OnHoverEnter();
-                    
-                    renderer.material.color = Color.red;
-                }
-                public override void OnHoverExit()
-                {
-                    base.OnHoverExit();
-                    
-                    renderer.material.color = Color.white;
-                }
+            public override void OnHoverEnter()
+            {
+                base.OnHoverEnter();
                 
-                public override void OnSelect()
-                {
-                    base.OnSelect();
-                    
-                    renderer.transform.localScale = Vector3.one * 1.1f;
-                }
-                public override void OnDeselect()
-                {
-                    base.OnDeselect();
-                    
-                    renderer.transform.localScale = Vector3.one * 1f;
-                }
+                renderer.material.color = highlightedColor;
+            }
+            public override void OnHoverExit()
+            {
+                base.OnHoverExit();
                 
-                #endregion
+                renderer.material.color = defaultColor;
+            }
+            
+            public override void OnSelect()
+            {
+                base.OnSelect();
+                
+                renderer.transform.localScale = Vector3.one * 1.1f;
+            }
+            public override void OnDeselect()
+            {
+                base.OnDeselect();
+                
+                OnClick_Event?.Invoke();
+                
+                renderer.transform.localScale = Vector3.one * 1f;
+            }
+            
+            #endregion
 
             #endregion
         }

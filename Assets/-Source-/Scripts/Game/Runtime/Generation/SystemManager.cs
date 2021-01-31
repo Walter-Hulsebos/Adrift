@@ -17,6 +17,8 @@ namespace Game
         public delegate void PlayerEnteredSystemBounds();
         public PlayerExitedSystemBounds onPlayerEnteredSystemBounds;
 
+        public bool hasEnemies;
+
         #endregion
 
         #region Private
@@ -66,6 +68,7 @@ namespace Game
             }
         }
 
+        List<GameObject> spawnedObjects = new List<GameObject>();
         private List<PlanetOrbit> planetOrbits = new List<PlanetOrbit>();
 
         private bool playerIsOutside;
@@ -122,6 +125,15 @@ namespace Game
 
         public void GenerateLevel(int levelRadius, int requiredAsteroids, int requiredNeutronium, int requiredPlanets, int requiredEnemies)
         {
+            foreach(GameObject obj in spawnedObjects)
+            {
+                Destroy(obj);
+            }
+
+            spawnedObjects.Clear();
+
+            planetOrbits.Clear();
+
             if (levelRadius == -1) levelRadius = _levelRadius;
             if (requiredAsteroids == -1) requiredAsteroids = Random.Range(minAsteroids, maxAsteroids);
             if (requiredNeutronium == -1) requiredNeutronium = Random.Range(minNeutroniumAsteroids, maxNeutroniumAsteroids);
@@ -137,7 +149,7 @@ namespace Game
             currentRadius = levelRadius;
             SetPlayerStartPosition();
 
-            List<GameObject> spawnedObjects = new List<GameObject>();
+            
 
             #region Spawning Planets
 
@@ -197,15 +209,17 @@ namespace Game
 
             #region Spawning Enemies
 
+            hasEnemies = false;
             if (Random.Range(0, 101) <= enemySpawnChance)
             {
+                hasEnemies = true;
                 for (int i = 0; i < requiredEnemies; i++)
                 {
                     int objectToSpawnOn = Random.Range(0, spawnedObjects.Count);
 
                     Vector3 pos = (Random.insideUnitSphere * enemySpawnRadius) + spawnedObjects[objectToSpawnOn].transform.position;
                     pos.z = 0;
-                    Instantiate(enemy, pos, new Quaternion(0, 0, Random.Range(0, 360), 0));
+                    spawnedObjects.Add(Instantiate(enemy, pos, new Quaternion(0, 0, Random.Range(0, 360), 0)));
                 }
             }
 
