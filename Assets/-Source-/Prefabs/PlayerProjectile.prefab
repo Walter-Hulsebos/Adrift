@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4675886071059350343}
   - component: {fileID: 4675886071059350336}
   - component: {fileID: 4675886071059350337}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4675886072017627628}
   - component: {fileID: 4675886072017627619}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1548655526911809920}
   - component: {fileID: 1548655526911809921}
   - component: {fileID: 1548655526911809922}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barren Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
