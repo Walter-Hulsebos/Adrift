@@ -8,7 +8,7 @@ namespace Game
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private int requiredNeutronium = 150;
-        [SerializeField] private TextMeshPro text;
+        [SerializeField] private TMP_Text text;
         int currentOption = 0;
         int selectedOption = -1;
 

@@ -3871,7 +3871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredNeutronium: 150
-  text: {fileID: 0}
+  text: {fileID: 8338763787904035756}
   stateColours:
   - {r: 0.50980395, g: 0.09019608, b: 0.09019608, a: 1}
   - {r: 0.50980395, g: 0.3764706, b: 0.09019608, a: 1}
