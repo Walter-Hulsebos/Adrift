@@ -1,0 +1,12 @@
+{
+    "name": "ProtoTextureEditor",
+    "references": [
+        "ProtoTexture"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
