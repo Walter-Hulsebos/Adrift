@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 49496748}
   - component: {fileID: 49496747}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: '[Post-Processing: Cockpit]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
