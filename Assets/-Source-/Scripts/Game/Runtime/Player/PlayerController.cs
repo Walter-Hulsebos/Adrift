@@ -27,9 +27,9 @@ namespace Game
         #region Exposed
 
         [Range(-1, 1)]
-        [SerializeField] private float rotationSlider = 0;
+        public float rotationSlider = 0;
         [Range(0, 1)]
-        [SerializeField] private float accelerationSlider = 0;
+        public float accelerationSlider = 0;
 
         [SerializeField] private float accelerationSpeed = 1.5f;
         [SerializeField] private float deccelerationSpeed = 3;
