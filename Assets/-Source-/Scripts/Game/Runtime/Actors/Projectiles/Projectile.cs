@@ -32,7 +32,8 @@ namespace Game
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(component: out PlayerShield __shield))
+            bool __hasShield = other.TryGetComponent(component: out PlayerShield __shield);
+            if (__hasShield)
             {
                 if (this.team != __shield.team)
                 {
@@ -42,7 +43,7 @@ namespace Game
                 }
             }
 
-            if (other.TryGetComponent(component: out Health __health) && __shield.currentShieldHealth <= 0)
+            if (other.TryGetComponent(component: out Health __health) && (__hasShield && __shield.currentShieldHealth <= 0))
             {
                 if (this.team != __health.team)
                 {

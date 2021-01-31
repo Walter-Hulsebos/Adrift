@@ -32,7 +32,7 @@ namespace Game
         public Vector2 AimDir => ActorTransform.up;
 
         [PublicAPI]
-        public Vector2 DirectionToTarget => (targeter.CurrentTarget.transform.position - this.transform.position);
+        public Vector2 DirectionToTarget => targeter.HasTarget ? (Vector2)(targeter.CurrentTarget.transform.position - this.transform.position) : AimDir;
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace Game
             Quaternion __rotation = Quaternion.AngleAxis(__angle, Vector3.forward);
             
             Projectile __projectile = Instantiate(original: projectilePrefab, position: __bulletSpawnPos, rotation: __rotation);
-            __projectile.GetComponent<Rigidbody2D>().velocity = __bulletDirection * Body.velocity.magnitude * 2; 
+            __projectile.GetComponent<Rigidbody2D>().velocity = __bulletDirection * 500 * Time.deltaTime;  //* Body.velocity.magnitude * 2; 
 
             //TODO: Muzzle and Sound.
             //MuzzleFlash();

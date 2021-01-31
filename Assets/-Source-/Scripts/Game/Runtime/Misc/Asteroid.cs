@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Asteroid : MonoBehaviour
+    public class Asteroid : MonoBehaviour, IActor
     {
         public Vector2 ActorPosition => transform.position;
 

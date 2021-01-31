@@ -34,9 +34,11 @@ namespace Game
                 CurrentTarget_Internal.Target();
             } 
         } 
-
-        public Sprite TargetSprite => CurrentTarget.transform.GetComponent<SpriteRenderer>().sprite;
         
+        public bool HasTarget => (CurrentTarget != null);
+
+        public Sprite TargetSprite => HasTarget ? CurrentTarget.transform.GetComponent<SpriteRenderer>().sprite : null;
+
         [PublicAPI]
         public bool TryGetNewTarget(out IActor newTarget)
         {
@@ -54,17 +56,19 @@ namespace Game
 
         private void Update()
         {
-            if (LockTarget) return;
+            if (HasTarget && LockTarget) return;
             
             if (TryGetNewTarget(newTarget: out IActor __newTarget))
             {
                 CurrentTarget = __newTarget;
+                
+                Debug.Log("New Target!");
             }
         }
 
         private void OnDrawGizmos()
         {
-            Debug.DrawRay(Ray.origin, Ray.direction * 100, Color.cyan);
+            Debug.DrawRay(Ray.origin, Ray.direction * maxDistance, Color.cyan);
         }
     }
 }
