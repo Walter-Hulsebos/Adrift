@@ -132,7 +132,7 @@
                 
                 #else
                 
-        	    return Path.GetFileNameWithoutExtension(scenePath);
+                return System.IO.Path.GetFileNameWithoutExtension(scenePath);
                 
                 #endif
             }
