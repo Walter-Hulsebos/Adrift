@@ -10,11 +10,13 @@ namespace Game
 
         [SerializeField] private GameObject reticle;
         
+        [ContextMenu("Target Test")]
         public void Target()
         {
             reticle.SetActive(true);
         }
 
+        [ContextMenu("Untarget Test")]
         public void Untarget()
         {
             reticle.SetActive(false);

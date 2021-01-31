@@ -27,15 +27,21 @@ namespace Game
             get => CurrentTarget_Internal;
             private set
             {
-                CurrentTarget_Internal?.Untarget();
-                //Set new
+                //Untarget current target.
+                if (CurrentTarget_Internal != null)
+                {
+                    CurrentTarget_Internal.Untarget();    
+                }
+                
+                //Set new target
                 CurrentTarget_Internal = value;
                 
+                //Target new target
                 CurrentTarget_Internal.Target();
             } 
         }
 
-        public bool HasTarget => (CurrentTarget != null);// || !CurrentTarget.Equals(null);
+        public bool HasTarget => false; //(CurrentTarget != null);// || !CurrentTarget.Equals(null);
 
         public Sprite TargetSprite => HasTarget ? CurrentTarget.transform.GetComponent<SpriteRenderer>().sprite : null;
 
