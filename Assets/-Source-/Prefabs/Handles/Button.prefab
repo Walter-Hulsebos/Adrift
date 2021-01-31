@@ -783,8 +783,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 7261316721834062421}
-  <Frame>k__BackingField: {fileID: 8341138095585738613}
-  <Knob>k__BackingField: {fileID: 5608778108059663712}
+  highlightedColor: {r: 1, g: 0, b: 0, a: 1}
+  defaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  <Frame>k__BackingField: {fileID: 0}
+  <Knob>k__BackingField: {fileID: 0}
   OnClick_Event:
     m_PersistentCalls:
       m_Calls: []
