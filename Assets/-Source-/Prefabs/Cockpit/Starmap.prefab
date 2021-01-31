@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1218585338254965325}
   - component: {fileID: 6660240126668957842}
   - component: {fileID: 5625942537126832819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (006)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5913902868316078239}
   - component: {fileID: 2921136457912482970}
   - component: {fileID: 8338763787904035756}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 5768487613710114850}
   - component: {fileID: 3259310563721987833}
   - component: {fileID: 6171947820459748593}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 6050730924331934347}
   - component: {fileID: 7634448631579304380}
   - component: {fileID: 4770057030946063791}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (005)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1192,8 +1192,7 @@ GameObject:
   - component: {fileID: 1712555076464474317}
   - component: {fileID: 1712555076464474316}
   - component: {fileID: 1712555076464474307}
-  - component: {fileID: 8621994286437156528}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Starmap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4035,7 +4034,7 @@ GameObject:
   - component: {fileID: 4419393047023898946}
   - component: {fileID: 5641752172442294085}
   - component: {fileID: 4489329899349455240}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4399,7 +4398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 186901098731202799}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4523,7 +4522,7 @@ GameObject:
   - component: {fileID: 4193457327434950658}
   - component: {fileID: 7384753182174279969}
   - component: {fileID: 778561793537817712}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4598,7 +4597,7 @@ GameObject:
   - component: {fileID: 3957489801193960837}
   - component: {fileID: 2619811299891892944}
   - component: {fileID: 6647246659928558593}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (004)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4673,7 +4672,7 @@ GameObject:
   - component: {fileID: 2320208661767894341}
   - component: {fileID: 4352335994422160392}
   - component: {fileID: 4822619388437739597}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: UI (001)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4961,8 +4960,8 @@ GameObject:
   - component: {fileID: 8288926319067356284}
   - component: {fileID: 7450008633405567012}
   - component: {fileID: 7346981774062816897}
-  m_Layer: 5
-  m_Name: Starmap Image
+  m_Layer: 11
+  m_Name: Starmap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5633,7 +5632,7 @@ GameObject:
   - component: {fileID: 8943437332760989770}
   - component: {fileID: 7393456341481191132}
   - component: {fileID: 5157817296830286585}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (007)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6319,7 +6318,7 @@ GameObject:
   - component: {fileID: 3157348784659844219}
   - component: {fileID: 4455727633157746656}
   - component: {fileID: 7209794727083443316}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (003)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6394,7 +6393,7 @@ GameObject:
   - component: {fileID: 7749935911525143294}
   - component: {fileID: 5120975900273877139}
   - component: {fileID: 9099701911263668152}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6735,7 +6734,7 @@ GameObject:
   - component: {fileID: 7276295925554003106}
   - component: {fileID: 6681130709714341707}
   - component: {fileID: 5400975608021977827}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (001)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6968,7 +6967,7 @@ GameObject:
   - component: {fileID: 6159555994720497305}
   - component: {fileID: 9147470852926554709}
   - component: {fileID: 8144294908469437454}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (002)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
