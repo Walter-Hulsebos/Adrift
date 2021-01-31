@@ -7,7 +7,7 @@ namespace Game
 {
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private int requiredNeutronium = 150;
+        public int requiredNeutronium = 150;
         [SerializeField] private TMP_Text text;
         int currentOption = 0;
         int selectedOption = -1;
@@ -71,6 +71,16 @@ namespace Game
 
         public void Jump()
         {
+            Debug.Log("Test");
+
+            if(!allowJump)
+            {
+                Debug.Log("Not ready");
+                //Play audio.
+
+                return;
+            }
+
             if(selectedOption != -1)
             {
                 ResourceManager.Instance.RemoveNeutronium(requiredNeutronium);
@@ -82,6 +92,7 @@ namespace Game
 
                 currentOption = selectedOption;
                 selectedOption = -1;
+                allowJump = false;
 
                 text.color = stateColours[0];
                 text.text = stateMessages[0];

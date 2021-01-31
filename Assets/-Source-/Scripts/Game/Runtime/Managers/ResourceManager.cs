@@ -11,15 +11,20 @@ namespace Game
         public delegate void ReceivedNeutronium(int currentAmount);
         public ReceivedNeutronium onReceivedNeutronium;
 
+        public delegate void NeutroniumChanged(int currentAmount);
+        public ReceivedNeutronium onNeutroniumChanged;
+
         public void AddNeutronium(int amount)
         {
             storedNeutronium += amount;
-            onReceivedNeutronium(storedNeutronium);
+            onReceivedNeutronium?.Invoke(storedNeutronium);
+            onNeutroniumChanged?.Invoke(storedNeutronium);
         }
 
         public void RemoveNeutronium(int amount)
         {
             storedNeutronium -= amount;
+            onNeutroniumChanged?.Invoke(storedNeutronium);
         }
     }
 }
