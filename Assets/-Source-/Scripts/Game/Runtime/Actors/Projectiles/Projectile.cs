@@ -45,7 +45,13 @@ namespace Game
                 }
             }
 
-            if (other.TryGetComponent(component: out Health __health) && (__hasShield && __shield.currentShieldHealth <= 0))
+            if (__hasShield && (__shield.currentShieldHealth > 0))
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+            
+            if (other.TryGetComponent(component: out Health __health))
             {
                 if (this.team != __health.team)
                 {
@@ -54,10 +60,7 @@ namespace Game
                     __health -= damage;   
                 }
             }
-
-            //TODO: Call explosion manager.
-            
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         #endregion

@@ -33,9 +33,9 @@ namespace Game
                 
                 CurrentTarget_Internal.Target();
             } 
-        } 
-        
-        public bool HasTarget => (CurrentTarget != null);
+        }
+
+        public bool HasTarget => (CurrentTarget != null);// || !CurrentTarget.Equals(null);
 
         public Sprite TargetSprite => HasTarget ? CurrentTarget.transform.GetComponent<SpriteRenderer>().sprite : null;
 
