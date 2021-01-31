@@ -1,13 +1,14 @@
+using System;
+using CGTK.Utilities.Singletons;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game
 {
-	using Selection;
-	
 	namespace Player.Targeting
 	{
 
-		public sealed partial class TargetingScreen : MonoBehaviour
+		public sealed partial class TargetingScreen : Singleton<TargetingScreen>
 		{
 			#region Fields
 
@@ -35,11 +36,20 @@ namespace Game
 				_center = __transform.position;
 			}
 
+			private void OnValidate()
+			{
+				Transform __transform = transform;
+				_selectionPlane = new Plane(inNormal: __transform.up, inPoint: __transform.position);
+				_center = __transform.position;
+			}
+
 			private Vector3 MouseRelativeOnPlane
 			{
 				get
 				{
-					Ray __ray = SelectionManager.MouseRay;
+					//Ray __ray = SelectionManager.MouseRay;
+
+					Ray __ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 					
 					Debug.DrawRay(__ray.origin, __ray.direction, Color.red);
 
@@ -49,18 +59,96 @@ namespace Game
 				}
 			}
 
+			public Vector3 localPositionTargetingScreen;
+			
 			/// <summary>
 			/// Returns true if in range, false if not.
 			/// </summary>
 			/// <param name="mouseLocalPosition"></param>
-			/// <returns></returns>
-			private bool MouseInTargetingScreen(out Vector3 mouseLocalPosition)
+			/// <returns> True when in targeting screen, false when out. </returns>
+			private bool MouseLocalPositionTargetingScreen (out Vector3 mouseLocalPosition)
 			{
 				Vector3 __mouseOnPlane = MouseRelativeOnPlane;
 				
 				mouseLocalPosition = transform.InverseTransformPoint(__mouseOnPlane);
 
+				localPositionTargetingScreen = new Vector3(mouseLocalPosition.x, 0, mouseLocalPosition.z);
+
 				return (Vector3.Distance(a: Vector3.zero, b: mouseLocalPosition) <= radius);
+			}
+
+			/// <summary>
+			/// 2D range between x [0 - 1], y [0 - 1]
+			/// </summary>
+			/// <returns> True when in targeting screen, false when out. </returns>
+			private bool MousePercentages(out Vector2 mousePercentages)
+			{
+				bool __isMouseOnTargetingScreen = MouseLocalPositionTargetingScreen(out Vector3 __mouseLocalPosition);
+				
+				float __diameter = (radius / 2);
+
+				mousePercentages.x = (__mouseLocalPosition.x / __diameter).Clamp01();
+				mousePercentages.y = (__mouseLocalPosition.z / __diameter).Clamp01();
+
+				return __isMouseOnTargetingScreen;
+			}
+
+			public Vector2 percentages;
+			
+			private bool MouseInOtherScene(in Camera otherSceneCamera, out Vector3 worldPositionOtherScene)
+			{
+				bool __isMouseOnTargetingScreen = MousePercentages(out Vector2 __mousePercentages);
+
+				percentages = __mousePercentages;
+
+				worldPositionOtherScene = otherSceneCamera.ViewportToWorldPoint(position: 
+					new Vector3(
+						__mousePercentages.x, 
+						__mousePercentages.y, 
+						otherSceneCamera.nearClipPlane));
+
+				return __isMouseOnTargetingScreen;
+			}
+
+			public IActor GetClosestActorToMouse(in Camera otherSceneCamera, in IActor[] actors)
+			{
+				bool __isMouseOnTargetingScreen = MouseInOtherScene(otherSceneCamera, out Vector3 __worldPositionOtherScene);
+
+				return __isMouseOnTargetingScreen 
+					? GetClosestActor(__worldPositionOtherScene, actors) 
+					: null;
+			}
+
+			private static IActor GetClosestActor(in Vector2 referencePosition, in IActor[] actors)
+			{
+				float  __closestDistance = Mathf.Infinity;
+				IActor __closestActor = null;
+
+				foreach (IActor __actor in actors)
+				{
+					float __distance = Vector2.Distance(__actor.ActorPosition, referencePosition);
+					
+					if (__distance >= __closestDistance) continue;
+					
+					__closestDistance = __distance;
+					__closestActor = __actor;
+				}
+				
+				return __closestActor;
+			}
+
+
+			[SerializeField] private GuidReference otherSceneCamera;
+
+			[SerializeField] private Transform otherSceneDebugObject;
+			
+			private void Update()
+			{
+				if (MouseInOtherScene(otherSceneCamera.gameObject.GetComponent<Camera>(), out Vector3 __worldPositionOtherScene))
+				{
+					otherSceneDebugObject.position = __worldPositionOtherScene;
+				}
+
 			}
 
 			#endregion

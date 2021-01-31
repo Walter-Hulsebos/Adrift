@@ -1,8 +1,6 @@
 using UnityEngine;
 
 #if UNITY_EDITOR
-using Game.Actors.Health;
-using Game.Buttons;
 using UnityEditor;
 #endif
 
@@ -63,7 +61,7 @@ namespace Game.Player.Targeting
 				
 				Handles.matrix = _transform.localToWorldMatrix;
 					
-				Handles.color = _targetingScreen.MouseInTargetingScreen(mouseLocalPosition: out Vector3 __mouseLocalPosition) 
+				Handles.color = _targetingScreen.MouseLocalPositionTargetingScreen(mouseLocalPosition: out Vector3 __mouseLocalPosition) 
 					? Color.red 
 					: Color.cyan;
 				
