@@ -32,6 +32,8 @@ namespace Game
         
         private void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log($"Collided With {other.name}");
+            
             bool __hasShield = other.TryGetComponent(component: out PlayerShield __shield);
             if (__hasShield)
             {
