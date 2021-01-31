@@ -17,6 +17,8 @@ namespace Game
         /// <param name="force">The speed the player was going at at the moment of impact</param>
         public delegate void HitObstacle(float force);
         public HitObstacle onHitObstacle;
+        
+        
 
         #endregion
 

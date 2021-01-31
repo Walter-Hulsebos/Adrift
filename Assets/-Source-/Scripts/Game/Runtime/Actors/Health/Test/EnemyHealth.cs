@@ -1,17 +1,13 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Actors.Health
 {
-    namespace Actors
+    public sealed class EnemyHealth : Health
     {
-        using Health;
-        
-        public sealed class EnemyHealth : Health.Health
+
+        public override void Kill()
         {
-            public override void Kill()
-            {
-                Debug.Log("I AM DEAD!");
-            }
+            EffectManager.Instance.SpawnExplosion(transform.position, Color.red);
         }
     }
 }
