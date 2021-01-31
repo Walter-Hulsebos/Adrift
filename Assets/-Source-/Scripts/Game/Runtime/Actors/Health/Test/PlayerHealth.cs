@@ -1,4 +1,7 @@
 using UnityEngine;
+using System.Collections;
+using CommonGames.Utilities.CGTK;
+using UnityEngine.SceneManagement;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -11,13 +14,14 @@ namespace Game.Actors.Health
         #if ODIN_INSPECTOR
         [LabelText(text: "Heal to multiple of:")]
         #endif
-        [SerializeField] private int multiple = 10;
+        [SerializeField] private int multiple = 25;
+        [SerializeField] private SceneReference credits;
         
         [Space(10)]
 
         [SerializeField] private float healthPerSecond = 2;
 
-        private bool IsNearestMultipleOf(in int multiple) => ((HealthPoints % multiple) == 0);
+        private bool IsNearestMultipleOf(in int multiple) => ((Mathf.RoundToInt(HealthPoints) % multiple) == 0);
         
         private void Update()
         {
@@ -26,16 +30,33 @@ namespace Game.Actors.Health
 
         private void HealOverTime()
         {
-            if (IsNearestMultipleOf(multiple)) return; //Stop healing at nearest Multiple.
+            if (IsNearestMultipleOf(multiple))
+            {
+                HealthPoints = Mathf.RoundToInt(HealthPoints);
+                return; //Stop healing at nearest Multiple.
+            }
+
             
-            int __healthPerFrame = Mathf.RoundToInt(healthPerSecond * Time.deltaTime);
+            float __healthPerFrame = healthPerSecond * Time.deltaTime;
 
             HealthPoints += __healthPerFrame;
         }
 
         public override void Kill()
         {
-            throw new System.NotImplementedException();
+            Debug.LogWarning("Play audio and delay!");
+            StartCoroutine(EndGame());
+        }
+
+        IEnumerator EndGame()
+        {
+            while(false) //check if audio stopped playing
+            {
+                yield return new WaitForSeconds(1);
+            }
+
+            QuitGame.Instance.Quit();
+            SceneManager.LoadScene(credits);
         }
     }
 }

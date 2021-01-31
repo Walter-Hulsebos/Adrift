@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Asteroid : MonoBehaviour, IHittable
+    public class Asteroid : MonoBehaviour
     {
         #region Variables
 
@@ -99,17 +99,12 @@ namespace Game
 
         #region Public
 
-        public void Hit(float damage)
+        public void Kill()
         {
-            health -= damage;
-
-            if(health < 0)
-            {
-                spriteRenderer.enabled = false;
-                EffectManager.Instance.SpawnExplosion(transform.position, currentColor);
-                onAsteroidDestroyed?.Invoke(amountOfNeutronium);
-                Destroy(gameObject);
-            }
+            spriteRenderer.enabled = false;
+            EffectManager.Instance.SpawnExplosion(transform.position, currentColor);
+            onAsteroidDestroyed?.Invoke(amountOfNeutronium);
+            Destroy(gameObject);
         }
 
         #endregion

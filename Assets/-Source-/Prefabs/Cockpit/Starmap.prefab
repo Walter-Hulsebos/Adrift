@@ -1192,6 +1192,7 @@ GameObject:
   - component: {fileID: 1712555076464474317}
   - component: {fileID: 1712555076464474316}
   - component: {fileID: 1712555076464474307}
+  - component: {fileID: 8621994286437156528}
   m_Layer: 11
   m_Name: Starmap
   m_TagString: Untagged
@@ -3869,6 +3870,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38c909915d406740b8febd5a681713e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  credits:
+    sceneAsset: {fileID: 0}
+    scenePath: 
   requiredNeutronium: 150
   text: {fileID: 8338763787904035756}
   stateColours:

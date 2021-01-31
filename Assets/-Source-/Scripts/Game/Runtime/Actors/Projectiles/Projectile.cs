@@ -12,7 +12,7 @@ namespace Game
 
         [SerializeField] private byte team = 0;
 
-        [SerializeField] private int damage = 5;
+        [SerializeField] private int damage = 10;
 
         public Rigidbody2D body;
 
@@ -32,7 +32,15 @@ namespace Game
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.TryGetComponent(component: out Health __health))
+            if (other.TryGetComponent(component: out PlayerShield __shield))
+            {
+                if (this.team != __shield.team)
+                {
+                    __shield.Damage(damage);
+                }
+            }
+
+            if (other.TryGetComponent(component: out Health __health) && __shield.currentShieldHealth <= 0)
             {
                 if (this.team != __health.team)
                 {
