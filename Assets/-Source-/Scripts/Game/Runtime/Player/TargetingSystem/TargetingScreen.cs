@@ -7,7 +7,7 @@ namespace Game
 {
 	namespace Player.Targeting
 	{
-
+		[ExecuteAlways]
 		public sealed partial class TargetingScreen : Singleton<TargetingScreen>
 		{
 			#region Fields
@@ -22,26 +22,20 @@ namespace Game
 
 			#region Methods
 
-			private void Reset()
-			{
-				Transform __transform = transform;
-				_selectionPlane = new Plane(inNormal: __transform.up, inPoint: __transform.position);
-				_center = __transform.position;
-			}
+			private void Reset() => UpdatePlane();
 
-			private void Awake()
-			{
-				Transform __transform = transform;
-				_selectionPlane = new Plane(inNormal: __transform.up, inPoint: __transform.position);
-				_center = __transform.position;
-			}
+			private void Awake() => UpdatePlane();
 
-			private void OnValidate()
+			private void OnValidate() => UpdatePlane();
+
+			private void UpdatePlane()
 			{
 				Transform __transform = transform;
-				_selectionPlane = new Plane(inNormal: __transform.up, inPoint: __transform.position);
-				_center = __transform.position;
+				Vector3 __position = __transform.position;
+				_selectionPlane = new Plane(inNormal: __transform.up, inPoint: __position);
+				_center = __position;
 			}
+			
 
 			private Vector3 MouseRelativeOnPlane
 			{
@@ -90,16 +84,16 @@ namespace Game
 				mousePercentages.x = (__mouseLocalPosition.x / __diameter).Clamp01();
 				mousePercentages.y = (__mouseLocalPosition.z / __diameter).Clamp01();
 
+				CurrentPercentages = mousePercentages;
+
 				return __isMouseOnTargetingScreen;
 			}
 
-			public Vector2 percentages;
+			public Vector2 CurrentPercentages { get; private set; }
 			
 			private bool MouseInOtherScene(in Camera otherSceneCamera, out Vector3 worldPositionOtherScene)
 			{
 				bool __isMouseOnTargetingScreen = MousePercentages(out Vector2 __mousePercentages);
-
-				percentages = __mousePercentages;
 
 				worldPositionOtherScene = otherSceneCamera.ViewportToWorldPoint(position: 
 					new Vector3(
@@ -144,9 +138,14 @@ namespace Game
 			
 			private void Update()
 			{
-				if (MouseInOtherScene(otherSceneCamera.gameObject.GetComponent<Camera>(), out Vector3 __worldPositionOtherScene))
+				UpdatePlane();
+				
+				if (otherSceneCamera == null) return;
+				
+				if (MouseInOtherScene(otherSceneCamera.gameObject.GetComponent<Camera>(),
+					out Vector3 __worldPositionOtherScene))
 				{
-					otherSceneDebugObject.position = __worldPositionOtherScene;
+					//otherSceneDebugObject.position = __worldPositionOtherScene;
 				}
 
 			}

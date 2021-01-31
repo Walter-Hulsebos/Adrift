@@ -4,8 +4,22 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Asteroid : MonoBehaviour, IHittable
+    public class Asteroid : MonoBehaviour, IActor
     {
+        public Vector2 ActorPosition => transform.position;
+
+        [SerializeField] private GameObject reticle;
+        
+        public void Target()
+        {
+            reticle.SetActive(true);
+        }
+
+        public void Untarget()
+        {
+            reticle.SetActive(false);
+        }
+        
         #region Variables
 
         #region Public

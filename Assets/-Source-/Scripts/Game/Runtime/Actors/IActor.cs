@@ -7,6 +7,9 @@ namespace Game
 {
     public interface IActor
     {
+        [PublicAPI]
+        public Transform transform { get; }
+        
         // ReSharper disable once InconsistentNaming
         [PublicAPI]
         Vector2 ActorPosition { get; }
