@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: _Main
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -22,17 +22,17 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   activeScene:
-    sceneAsset: {fileID: 102900000, guid: 117a612a5c0e692448fea8bb4feedfa4, type: 3}
-    scenePath: Assets/-Source-/Scenes/Cockpit.unity
+    sceneAsset: {fileID: 102900000, guid: afa2ee386a82c554aa3f3060906086de, type: 3}
+    scenePath: Assets/-Source-/Scenes/Space.unity
   activeSceneIndex: 0
   sceneAssets:
   - active: 1
     loadScene: 1
     sceneReference:
-      sceneAsset: {fileID: 102900000, guid: 117a612a5c0e692448fea8bb4feedfa4, type: 3}
-      scenePath: Assets/-Source-/Scenes/Cockpit.unity
+      sceneAsset: {fileID: 102900000, guid: afa2ee386a82c554aa3f3060906086de, type: 3}
+      scenePath: Assets/-Source-/Scenes/Space.unity
   - active: 0
     loadScene: 1
     sceneReference:
-      sceneAsset: {fileID: 102900000, guid: afa2ee386a82c554aa3f3060906086de, type: 3}
-      scenePath: Assets/-Source-/Scenes/Space.unity
+      sceneAsset: {fileID: 102900000, guid: 117a612a5c0e692448fea8bb4feedfa4, type: 3}
+      scenePath: Assets/-Source-/Scenes/Cockpit.unity
