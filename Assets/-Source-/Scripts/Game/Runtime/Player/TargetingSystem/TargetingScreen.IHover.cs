@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace Game
 {
@@ -7,28 +6,15 @@ namespace Game
 
 	namespace Player.Targeting
 	{
-
-		public sealed class TargetingScreen : MonoBehaviour, IHover
+		public sealed partial class TargetingScreen : IHover
 		{
-			#region Fields
+			#region Manager
 
-			[SerializeField] private float radius = 1;
-				
-			[SerializeField] private Plane selectionPlane;
-
+			protected static SelectionManager SelectionManager => SelectionManager.Instance;
+			protected static bool SelectionManagerExists => SelectionManager.InstanceExists;
+			
 			#endregion
-
-			#region Methods
-
-			private void Reset()
-			{
-				//selectionPlane 
-			}
-
-			#endregion
-
-			#region Hoverable
-
+			
 			public event Action HoverEnter_Event;
 			public event Action HoverExit_Event;
 			public bool IsHovered { get; set; }
@@ -41,14 +27,6 @@ namespace Game
 			{
 				throw new NotImplementedException();
 			}
-
-			#endregion
-
-			#region Editor
-
-			
-
-			#endregion
 		}
 	}
 }
