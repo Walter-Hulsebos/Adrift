@@ -16,11 +16,11 @@ namespace Game
 
 			
 			[SerializeField] private NoiseSettings noiseStill;
-			[SerializeField] private float stillAmplitude, stillFrequencyGain;
+			//[SerializeField] private float stillAmplitude, stillFrequencyGain;
 
 			[SerializeField] private NoiseSettings noiseFlight;
-			[SerializeField] private float flightAmpMin, flightAmpMax;
-			[SerializeField] private float flightFreqMin, flightFreqMax;
+			[SerializeField] private float flightAmpMin = 0, flightAmpMax = 0.3f;
+			[SerializeField] private float flightFreqMin = 0, flightFreqMax = 0.2f;
 			#endregion
 
 			#region Methods
