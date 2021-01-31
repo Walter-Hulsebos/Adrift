@@ -13,6 +13,19 @@ MonoBehaviour:
   m_Name: '[SCPE] ScanlinesRenderer'
   m_EditorClassIdentifier: 
   m_Active: 1
+--- !u!114 &-6961391781435107345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75abc38b4cd3a4d4982e12c466596dad, type: 3}
+  m_Name: '[SCPE] TransitionRenderer'
+  m_EditorClassIdentifier: 
+  m_Active: 1
 --- !u!114 &-6541094707957011353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +108,8 @@ MonoBehaviour:
   - {fileID: 6394379189004898667}
   - {fileID: -8140532047999968748}
   - {fileID: -6541094707957011353}
+  - {fileID: 5603811380774220383}
+  - {fileID: -6961391781435107345}
   m_RendererFeatureMap: 95030a974c83d5d5
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -135,6 +150,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0e8fd88d0295034688a2f7fa7b77870, type: 3}
   m_Name: '[SCPE] BlackBarsRenderer'
+  m_EditorClassIdentifier: 
+  m_Active: 1
+--- !u!114 &5603811380774220383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b1aa0fcc082a04480388013aa6535c, type: 3}
+  m_Name: '[SCPE] BlurRenderer'
   m_EditorClassIdentifier: 
   m_Active: 1
 --- !u!114 &6394379189004898667
