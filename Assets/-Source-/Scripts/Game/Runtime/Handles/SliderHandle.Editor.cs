@@ -11,6 +11,8 @@ namespace Game
     {
         public sealed partial class SliderHandle
         {
+            #if UNITY_EDITOR
+            
             [CustomEditor(typeof(SliderHandle))]
             private sealed class SliderEditor : Editor
             {
@@ -69,6 +71,9 @@ namespace Game
                     );
                 }
             }
+            
+            #endif
+            
         }
     }
 }
