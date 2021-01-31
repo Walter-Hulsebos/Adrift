@@ -5,7 +5,7 @@ using CGTK.Utilities.Singletons;
 
 namespace Game
 {
-    public class SystemManager : PersistentLazySingleton<SystemManager>
+    public class SystemManager : PersistentSingleton<SystemManager>
     {
         #region Variables
 
@@ -122,8 +122,6 @@ namespace Game
 
         public void GenerateLevel(int levelRadius, int requiredAsteroids, int requiredNeutronium, int requiredPlanets, int requiredEnemies)
         {
-            
-
             if (levelRadius == -1) levelRadius = _levelRadius;
             if (requiredAsteroids == -1) requiredAsteroids = Random.Range(minAsteroids, maxAsteroids);
             if (requiredNeutronium == -1) requiredNeutronium = Random.Range(minNeutroniumAsteroids, maxNeutroniumAsteroids);
