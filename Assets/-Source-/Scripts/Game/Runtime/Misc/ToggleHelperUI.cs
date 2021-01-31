@@ -10,6 +10,7 @@ namespace Game
 
         [SerializeField] private List<GameObject> uiObjects = new List<GameObject>();
 
+        [ContextMenu("Toggle")]
         public void ToggleUI()
         {
             foreach(GameObject ui in uiObjects)
