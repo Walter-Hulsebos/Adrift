@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -167,7 +167,7 @@ MonoBehaviour:
   acceleration: 10
   fireDelay: 0.4
   closeInRange: 5
-  attackRange: 20
+  attackRange: 8
   followRange: 30
   desiredAngle: 30
 --- !u!114 &-3993527542649876604
@@ -183,15 +183,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
+    SerializedFormat: 0
+    SerializedBytes: 17010c0000004800650061006c007400680050006f0069006e007400730064000000
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: HealthPoints
-      Entry: 3
-      Data: 100
+    SerializationNodes: []
   team: 2

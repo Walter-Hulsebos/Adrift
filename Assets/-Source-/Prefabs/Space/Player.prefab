@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 737195543372683452}
   - component: {fileID: 737195543372683450}
   - component: {fileID: 681908472}
+  - component: {fileID: -913368307276677917}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -325,8 +326,26 @@ MonoBehaviour:
       Entry: 3
       Data: 100
   team: 1
-  multiple: 10
+  multiple: 25
+  credits:
+    sceneAsset: {fileID: 102900000, guid: c3ff0623e590a134db618833a6ffafc7, type: 3}
+    scenePath: Assets/-Source-/Scenes/Credits.unity
   healthPerSecond: 2
+--- !u!114 &-913368307276677917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737195543372683440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c96facf02018ba4aa15f8823dec723c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 1
+  currentShieldHealth: 50
+  maxShieldHealth: 50
 --- !u!1 &737195543854598014
 GameObject:
   m_ObjectHideFlags: 0

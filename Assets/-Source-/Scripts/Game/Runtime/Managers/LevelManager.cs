@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using CommonGames.Utilities.CGTK;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
     public class LevelManager : MonoBehaviour
     {
+        [SerializeField] private SceneReference credits;
+
         public int requiredNeutronium = 150;
         [SerializeField] private TMP_Text text;
         int currentOption = 0;
@@ -47,8 +51,15 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            ResourceManager.Instance.onReceivedNeutronium += OnReceiveNeutronium;
             SystemManager.Instance.GenerateLevel(-1, -1, -1, -1, 0);
+        }
+
+        private void Update()
+        {
+            if(ResourceManager.Instance.storedNeutronium >= requiredNeutronium && !allowJump)
+            {
+                OnReceiveNeutronium(ResourceManager.Instance.storedNeutronium);
+            }
         }
 
         public void OnReceiveNeutronium(int currentNeutronium)
@@ -69,6 +80,7 @@ namespace Game
             }
         }
 
+        [ContextMenu("Jump")]
         public void Jump()
         {
             Debug.Log("Test");
@@ -83,6 +95,15 @@ namespace Game
 
             if(selectedOption != -1)
             {
+                if (selectedOption == 14)
+                {
+                    Debug.Log("Game end!");
+
+                    //start congratulating audio.
+                    StartCoroutine(Victory());
+                    return;
+                }
+
                 ResourceManager.Instance.RemoveNeutronium(requiredNeutronium);
 
                 if(ResourceManager.Instance.storedNeutronium < 0) //Shouldnt be possible but just to be safe.
@@ -101,23 +122,17 @@ namespace Game
 
                 //TODO: ADD DELAY
                 SystemManager.Instance.GenerateLevel();
+                Debug.Log("Jumping!");
             }
             else
             {
+                Debug.Log("No Destination");
                 //TODO: Play audio notifying user that no selection has been made.
             }
         }
 
         public void SelectOption(int option)
         {
-            if(option == 14)
-            {
-                Debug.Log("Game end!");
-
-                //Load credits scene after audio congratulating player played.
-                throw new System.NotImplementedException();
-            }
-
             int[] optionsToActivate = options[currentOption];
             foreach (int i in optionsToActivate)
             {
@@ -128,6 +143,17 @@ namespace Game
             text.text = stateMessages[2];
 
             selectedOption = option;
+        }
+
+        IEnumerator Victory()
+        {
+            while(false)//Check if player finished playing audio.
+            {
+                yield return new WaitForSeconds(1);
+            }
+
+            QuitGame.Instance.Quit();
+            SceneManager.LoadScene(credits);
         }
     }
 }

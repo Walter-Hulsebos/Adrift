@@ -33,9 +33,9 @@ namespace Game
                 /// <remarks>
                 /// Override this if you want a different default health value than 100.
                 /// </remarks>
-                protected int Max => 100;
+                protected virtual float Max => 100;
 
-                private int HealthPointsInternal { get; set; }
+                private float HealthPointsInternal { get; set; }
                 
                 #if ODIN_INSPECTOR
                 [ProgressBar(min: 0, maxGetter: nameof(Max), ColorGetter = "GetHealthBarColor")]
@@ -43,13 +43,13 @@ namespace Game
                 #else
                 [field: SerializeField]
                 #endif
-                public int HealthPoints
+                public float HealthPoints
                 {
                     get => HealthPointsInternal;
 
                     protected set
                     {
-                        HealthPointsInternal = Mathf.Clamp(value: value, min: 0, max: Max);
+                        HealthPointsInternal = Mathf.Clamp(value: value, min: 0f, max: Max);
 
                         OnHealthChanged();
 
@@ -71,7 +71,7 @@ namespace Game
                 public bool HasDamage => (HealthPoints < Max);
 
                 [PublicAPI] 
-                public bool IsDead => (HealthPoints <= 0);
+                public bool IsDead => (Mathf.RoundToInt(HealthPoints) <= 0);
                 
                 protected bool AlreadyDead { get; set; } = false;
 
@@ -79,7 +79,7 @@ namespace Game
 
                 #region Events
 
-                public event Action<int> OnHealthChanged_Event;
+                public event Action<float> OnHealthChanged_Event;
                 public event Action OnDeath_Event;
 
                 #endregion
@@ -112,7 +112,7 @@ namespace Game
 
                 #region Operators
 
-                public static implicit operator int(in Health health) => health.HealthPoints;
+                public static implicit operator float(in Health health) => health.HealthPoints;
                 
                 public static Health operator ++(in Health health)
                 {

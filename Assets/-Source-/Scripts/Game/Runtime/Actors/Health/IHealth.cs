@@ -12,7 +12,7 @@ namespace Game
                 #region Properties
 
                 /// <summary> Current HP. </summary>
-                public int HealthPoints { get; }
+                public float HealthPoints { get; }
 
                 /// <summary>
                 /// The percentage of health compared to the max.
@@ -52,7 +52,7 @@ namespace Game
                 #region Events
                 
                 /// <summary> Raised when the amount of health of the Actor changes. </summary>
-                public event Action<int> OnHealthChanged_Event;
+                public event Action<float> OnHealthChanged_Event;
                 
                 /// <summary> Raised when the Actor is killed. </summary>
                 public event Action OnDeath_Event;
