@@ -14,7 +14,7 @@ using MonoBehaviour = UnityEngine.MonoBehaviour;
 
 namespace Game
 {
-    public class Actor : MonoBehaviour
+    public class Actor : MonoBehaviour, IActor
     {
         #region Fields
 
@@ -89,6 +89,20 @@ namespace Game
         #endregion
 
         #region Methods
+
+        #region IActor
+
+        public virtual void Target()
+        {
+            
+        }
+
+        public virtual void Untarget()
+        {
+            
+        }
+
+        #endregion
 
         private void Reset()
         {
