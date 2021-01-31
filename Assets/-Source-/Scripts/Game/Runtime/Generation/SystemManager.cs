@@ -5,7 +5,7 @@ using CGTK.Utilities.Singletons;
 
 namespace Game
 {
-    public class SystemManager : PersistentSingleton<SystemManager>
+    public class SystemManager : PersistentTestSingleton<SystemManager>
     {
         #region Variables
 
@@ -130,7 +130,7 @@ namespace Game
 
             if ((levelRadius - 45) / minimumOrbitDistance + 1 < requiredPlanets)
             {
-                Debug.LogError("Cant fit that many planets mate.");
+                Debug.LogWarning("Cant fit that many planets mate.");
                 requiredPlanets = (levelRadius - 45) / minimumOrbitDistance + 1;
             }
 

@@ -11,6 +11,8 @@ namespace Game
     {
         public sealed partial class RotatorHandle
         {
+         
+            #if UNITY_EDITOR
             
             [CustomEditor(typeof(RotatorHandle))]
             private sealed class RotatorEditor : Editor
@@ -63,6 +65,9 @@ namespace Game
                     Handles.DrawLine(__position, __position + (__startingAngle * __radius));
                 }
             }
+            
+            #endif
+            
         }
     }
 }
