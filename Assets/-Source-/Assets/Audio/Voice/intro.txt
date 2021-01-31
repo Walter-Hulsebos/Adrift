@@ -1,0 +1,18 @@
+Pilot has resumed functioning. Performing systems check.
+Hyperdrive:.. Inoperable..
+Jump Drive:.. Operational.
+
+Conclusion:.. Short-range travel available.
+
+Life Support:.. Sufficient..
+Hull:.. Intact..
+Shields:.. Operational..
+
+Conclusion:.. Likelyhood of pilot survival: 55%
+
+Weapons:.. Operational..
+Scanners:.. Short range only..
+View Screen:.. Inoperable. Recommend flying on instruments.
+
+Advice to pilot:.
+Perform system by system jumps and reach the nearest friendly outpost. I've marked it on your star map in the top left of your field of view.
