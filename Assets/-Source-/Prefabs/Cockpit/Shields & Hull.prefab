@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1218585338254965325}
   - component: {fileID: 6660240126668957842}
   - component: {fileID: 5625942537126832819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (006)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5768487613710114850}
   - component: {fileID: 3259310563721987833}
   - component: {fileID: 6171947820459748593}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 6050730924331934347}
   - component: {fileID: 7634448631579304380}
   - component: {fileID: 4770057030946063791}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (005)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 1712555076464474317}
   - component: {fileID: 1712555076464474316}
   - component: {fileID: 1712555076464474307}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Shields & Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2941,7 +2941,7 @@ GameObject:
   - component: {fileID: 3416899243767277260}
   - component: {fileID: 2120663514551502246}
   - component: {fileID: 7311982297561727373}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3016,7 +3016,7 @@ GameObject:
   - component: {fileID: 4419393047023898946}
   - component: {fileID: 5641752172442294085}
   - component: {fileID: 4489329899349455240}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3091,7 +3091,7 @@ GameObject:
   - component: {fileID: 3388444499934448944}
   - component: {fileID: 4318542608261577550}
   - component: {fileID: 4515773012516889801}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3166,7 +3166,7 @@ GameObject:
   - component: {fileID: 8546969246841913683}
   - component: {fileID: 3003350119942879849}
   - component: {fileID: 1920390701217835765}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3243,7 +3243,7 @@ GameObject:
   - component: {fileID: 3957489801193960837}
   - component: {fileID: 2619811299891892944}
   - component: {fileID: 6647246659928558593}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (004)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3318,7 +3318,7 @@ GameObject:
   - component: {fileID: 5038406748689866583}
   - component: {fileID: 4833545201722191275}
   - component: {fileID: 6312316250920131116}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3393,7 +3393,7 @@ GameObject:
   - component: {fileID: 9067689387469431425}
   - component: {fileID: 8266312448487941265}
   - component: {fileID: 5486737236316096669}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: UI (001)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3468,7 +3468,7 @@ GameObject:
   - component: {fileID: 8943437332760989770}
   - component: {fileID: 7393456341481191132}
   - component: {fileID: 5157817296830286585}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (007)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3543,7 +3543,7 @@ GameObject:
   - component: {fileID: 1597841578150422337}
   - component: {fileID: 3866620543227578839}
   - component: {fileID: 3130751168680814809}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3618,7 +3618,7 @@ GameObject:
   - component: {fileID: 3157348784659844219}
   - component: {fileID: 4455727633157746656}
   - component: {fileID: 7209794727083443316}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (003)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3693,7 +3693,7 @@ GameObject:
   - component: {fileID: 7276295925554003106}
   - component: {fileID: 6681130709714341707}
   - component: {fileID: 5400975608021977827}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (001)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3766,7 +3766,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7804344356672268262}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3813,7 +3813,7 @@ GameObject:
   - component: {fileID: 6159555994720497305}
   - component: {fileID: 9147470852926554709}
   - component: {fileID: 8144294908469437454}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image (002)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

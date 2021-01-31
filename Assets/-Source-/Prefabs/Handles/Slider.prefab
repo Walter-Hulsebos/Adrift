@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4619748546259075604}
   - component: {fileID: 4619748546259075611}
   - component: {fileID: 4619748546259075610}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4619748546559220468}
   - component: {fileID: 4619748546559220470}
   - component: {fileID: 4619748546559220469}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 4619748547115879739}
   - component: {fileID: 4619748547115879732}
   - component: {fileID: 4619748547115879735}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Knob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4619748547874261800}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 971151455405056484}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
