@@ -36,6 +36,8 @@ namespace Game
             {
                 if (this.team != __shield.team)
                 {
+                    if (__shield.team == 1) ScreenshakeManager.Instance.ShakeHit(0);
+
                     __shield.Damage(damage);
                 }
             }
@@ -44,6 +46,8 @@ namespace Game
             {
                 if (this.team != __health.team)
                 {
+                    if (__health.team == 1) ScreenshakeManager.Instance.ShakeHit(1);
+
                     __health -= damage;   
                 }
             }
