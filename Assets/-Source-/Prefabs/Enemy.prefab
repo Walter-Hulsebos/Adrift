@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7548949721397033520}
   - component: {fileID: 7548949721397033526}
   - component: {fileID: 7548949721397033534}
+  - component: {fileID: -3993527542649876604}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -129,8 +130,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_LinearDrag: 0.5
+  m_AngularDrag: 0.5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -159,13 +160,38 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   <Body>k__BackingField: {fileID: 7548949721397033526}
-  projectilePrefab: {fileID: 0}
+  team: 2
+  projectilePrefab: {fileID: 4683345702768145432, guid: 3d11697d4b38938438e678b6ddf1b985, type: 3}
   rotSpeed: 175
   maxSpeed: 40
   acceleration: 10
   fireDelay: 0.4
-  closeInRange: 0
-  attackRange: 0
-  followRange: 0
-  desiredGoalAngle: 30
-  <PlayerBody>k__BackingField: {fileID: 0}
+  closeInRange: 5
+  attackRange: 20
+  followRange: 30
+  desiredAngle: 30
+--- !u!114 &-3993527542649876604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7548949721397033532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bcf3c451b46d847b17b270167f16e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: HealthPoints
+      Entry: 3
+      Data: 100
+  team: 2

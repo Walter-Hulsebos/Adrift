@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UIElements;
+
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -122,7 +120,8 @@ namespace Game
                 }
                 void __Shooting()
                 {
-                    if (__isAligned && __inAttackRange) //Align up first, then shoot.
+                    //__isAligned && 
+                    if (__inAttackRange) //Align up first, then shoot.
                     {
                         Fire();
                     }    

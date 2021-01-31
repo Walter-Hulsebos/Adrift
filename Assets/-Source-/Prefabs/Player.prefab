@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 737195543372683455}
   - component: {fileID: 737195543372683452}
   - component: {fileID: 737195543372683450}
+  - component: {fileID: 681908472}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -229,6 +230,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2bf5869b71ad87459e7d309fca84458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: onHitObstacle
+      Entry: 6
+      Data: 
   rotationSlider: 0
   accelerationSlider: 0
   accelerationSpeed: 3
@@ -287,6 +300,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &681908472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737195543372683440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31149935a898cdd4a8bc3df669eb4273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: HealthPoints
+      Entry: 3
+      Data: 100
+  team: 1
+  multiple: 10
+  healthPerSecond: 2
 --- !u!1 &737195543854598014
 GameObject:
   m_ObjectHideFlags: 0

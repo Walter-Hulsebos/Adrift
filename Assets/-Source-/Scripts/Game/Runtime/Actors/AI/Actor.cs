@@ -22,6 +22,8 @@ namespace Game
         
         [field: SerializeField]
         public Rigidbody2D Body { get; protected set; }
+
+        public byte team;
         
         private PolygonCollider2D _collider;
 
@@ -148,13 +150,14 @@ namespace Game
                 float __angle = Mathf.Atan2(__bulletDirection.y, __bulletDirection.x) * Mathf.Rad2Deg;
                 Quaternion __rotation = Quaternion.AngleAxis(__angle, Vector3.forward);
                 
-                Instantiate(original: projectilePrefab, position: __bulletSpawnPos, rotation: __rotation);
+                Projectile __projectile = Instantiate(original: projectilePrefab, position: __bulletSpawnPos, rotation: __rotation);
+                __projectile.GetComponent<Rigidbody2D>().velocity = __bulletDirection * Body.velocity.magnitude * 2; 
 
                 //TODO: Muzzle and Sound.
                 //MuzzleFlash();
                 //playSound(0, 0.5f);
 
-                _nextFire = fireDelay + Time.time;
+                _nextFire = (Time.time + fireDelay);
             }
         }
         
