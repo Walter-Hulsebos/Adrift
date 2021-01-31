@@ -5,7 +5,7 @@ using CGTK.Utilities.Singletons;
 
 namespace Game
 {
-    public class SystemManager : PersistentSingleton<SystemManager>
+    public class SystemManager : PersistentTestSingleton<SystemManager>
     {
         #region Variables
 
