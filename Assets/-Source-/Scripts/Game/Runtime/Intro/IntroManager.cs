@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game
@@ -20,18 +22,44 @@ namespace Game
         bool playingFX = true;
         bool notFinishedIntro = true;
 
+        private const string INTRO_FIRST_TIME_KEY = "IntroFirstTime";
+
+        private static bool IsFirstTime
+        {
+            get => (PlayerPrefs.GetInt(key: INTRO_FIRST_TIME_KEY, defaultValue: 1) == 1);
+            set => PlayerPrefs.SetInt(key: INTRO_FIRST_TIME_KEY, value: value ? 1 : 0);
+        }
+
+        private void Reset()
+        {
+            IsFirstTime = true;
+        }
+
+        [Button]
+        private void SetFirstTime() => IsFirstTime = true;
+
         void Start()
         {
-            MusicPlayer.Instance.Toggle(false);
+            if (IsFirstTime)
+            {
 
-            //Audio fx afspelen (sparks, etc)
-            //Screenshake starten!
+                MusicPlayer.Instance.Toggle(false);
 
-            //Audio spelen (voice)
-            //Tijdens voice afspelen effects weghalen.
-            //wachten tot voice klaar is, dan blocker weghalen.
+                //Audio fx afspelen (sparks, etc)
+                //Screenshake starten!
 
-            StartCoroutine(PlayIntro());
+                //Audio spelen (voice)
+                //Tijdens voice afspelen effects weghalen.
+                //wachten tot voice klaar is, dan blocker weghalen.
+
+                StartCoroutine(PlayIntro());
+
+                IsFirstTime = false;
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         IEnumerator PlayIntro()
