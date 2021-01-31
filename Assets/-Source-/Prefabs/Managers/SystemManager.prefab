@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &395440208398706507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 395440208398706501}
+  - component: {fileID: 395440208398706500}
+  m_Layer: 0
+  m_Name: SystemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &395440208398706501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395440208398706507}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &395440208398706500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395440208398706507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12dd08c1650e25f4887615f4eba68d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleDrawerPrefab: {fileID: 5918526008805747210, guid: c26b6faccc8db074daf3f69e055f7dd8, type: 3}
+  planets:
+  - {fileID: 1548655526911809923, guid: 2927a80d4ef18be49b67f3c5cfa39de2, type: 3}
+  - {fileID: 314793051912161218, guid: 71d541d8e198cee498bd690f6b0e9b33, type: 3}
+  asteroid: {fileID: 6274549886023847221, guid: 3c20dc0e695762e4daec1f8282545cd0, type: 3}
+  enemy: {fileID: 7548949721397033532, guid: d8cc2215afccdb74a86649cc3e718996, type: 3}
+  levelRadius: 100
+  minimumObjectDistance: 3
+  minimumOrbitDistance: 10
+  enemySpawnRadius: 2
+  enemySpawnChance: 50
+  planetSpawnChance: 60
+  minNeutroniumAsteroids: 3
+  maxNeutroniumAsteroids: 6
+  minAsteroids: 15
+  maxAsteroids: 50
+  minPlanets: 1
+  maxPlanets: 4
+  minEnemies: 2
+  maxEnemies: 6
