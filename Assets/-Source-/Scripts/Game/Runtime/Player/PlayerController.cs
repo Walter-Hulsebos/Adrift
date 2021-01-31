@@ -80,7 +80,7 @@ namespace Game
             Debug.Log("Hit object!");
             if(TryGetComponent(component: out Health __health))
             {
-                __health -= Mathf.RoundToInt(25 * (currentSpeed / maxSpeed));
+                __health -= Mathf.RoundToInt(10 * (currentSpeed / maxSpeed));
             }
 
             VoiceManager.Instance.PlayClip(5);
