@@ -23,6 +23,9 @@ namespace Game
             {
                 #region Properties
 
+                [field: SerializeField] 
+                public byte team;
+                
                 /// <summary>
                 /// The default and max health value.
                 /// </summary>
@@ -35,7 +38,7 @@ namespace Game
                 private int HealthPointsInternal { get; set; }
                 
                 #if ODIN_INSPECTOR
-                [ProgressBar(0, "Max", ColorGetter = "GetHealthBarColor")]
+                [ProgressBar(min: 0, maxGetter: nameof(Max), ColorGetter = "GetHealthBarColor")]
                 [OdinSerialize]
                 #else
                 [field: SerializeField]
