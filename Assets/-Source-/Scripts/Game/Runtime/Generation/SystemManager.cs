@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CGTK.Utilities.Singletons;
 
 namespace Game
 {
-    public class SystemManager : MonoBehaviour
+    public class SystemManager : PersistentLazySingleton<SystemManager>
     {
         #region Variables
 
@@ -30,7 +31,7 @@ namespace Game
         [SerializeField] private GameObject asteroid;
         [SerializeField] private GameObject enemy;
 
-        [SerializeField] private int levelRadius = 50;
+        [SerializeField] private int _levelRadius = 50;
         [SerializeField] private int minimumObjectDistance = 3;
         [SerializeField] private int minimumOrbitDistance = 12;
         [SerializeField] private int enemySpawnRadius = 2;
@@ -45,8 +46,6 @@ namespace Game
         [SerializeField] private int minEnemies = 0, maxEnemies = 5;
 
         #endregion
-
-        
 
         private int retryAttempts = 10;
 
@@ -71,6 +70,7 @@ namespace Game
 
         private bool playerIsOutside;
         private CircleDrawer borderDrawer;
+        private int currentRadius;
 
         #endregion
 
@@ -82,21 +82,14 @@ namespace Game
 
         private void Start()
         {
-            if (maxPlanets * minimumOrbitDistance > levelRadius - 10)
-            {
-                Debug.LogError("That wont generate well.");
-                Application.Quit();
-            }
-
             borderDrawer = Instantiate(circleDrawerPrefab, transform).GetComponent<CircleDrawer>();
             borderDrawer.Setup(.2f, Color.green);
-            GenerateLevel();
         }
 
         void Update()
         {
             CheckIfOutside(PlayerController.Instance.transform.position);
-            borderDrawer.DrawCircle(levelRadius);
+            borderDrawer.DrawCircle(currentRadius);
 
             foreach(PlanetOrbit orbit in planetOrbits)
             {
@@ -110,7 +103,7 @@ namespace Game
 
         public void GenerateLevel()
         {
-            maxPlanets = (levelRadius - 45) / minimumOrbitDistance + 1;
+            maxPlanets = (_levelRadius - 45) / minimumOrbitDistance + 1;
             
             if(minPlanets > maxPlanets)
             {
@@ -123,19 +116,28 @@ namespace Game
             int requiredPlanets = Random.Range(minPlanets, maxPlanets);
             int requiredEnemies = Random.Range(minEnemies, maxEnemies);
 
-            GenerateLevel(levelRadius, requiredAsteroids, requiredNeutronium, requiredPlanets, requiredEnemies);
+            GenerateLevel(_levelRadius, requiredAsteroids, requiredNeutronium, requiredPlanets, requiredEnemies);
         }
 
 
         public void GenerateLevel(int levelRadius, int requiredAsteroids, int requiredNeutronium, int requiredPlanets, int requiredEnemies)
         {
-            SetPlayerStartPosition();
+            
 
-            if((levelRadius - 45) / minimumOrbitDistance + 1 < requiredPlanets)
+            if (levelRadius == -1) levelRadius = _levelRadius;
+            if (requiredAsteroids == -1) requiredAsteroids = Random.Range(minAsteroids, maxAsteroids);
+            if (requiredNeutronium == -1) requiredNeutronium = Random.Range(minNeutroniumAsteroids, maxNeutroniumAsteroids);
+            if (requiredPlanets == -1) requiredPlanets = Random.Range(minPlanets, maxPlanets);
+            if (requiredEnemies == -1) requiredEnemies = Random.Range(minEnemies, maxEnemies);
+
+            if ((levelRadius - 45) / minimumOrbitDistance + 1 < requiredPlanets)
             {
                 Debug.LogError("Cant fit that many planets mate.");
                 requiredPlanets = (levelRadius - 45) / minimumOrbitDistance + 1;
             }
+
+            currentRadius = levelRadius;
+            SetPlayerStartPosition();
 
             List<GameObject> spawnedObjects = new List<GameObject>();
 
@@ -215,7 +217,7 @@ namespace Game
         public void SetPlayerStartPosition()
         {
             Vector3 dir = Random.insideUnitCircle.normalized;
-            PlayerController.Instance.transform.position = dir * (levelRadius - 10);
+            PlayerController.Instance.transform.position = dir * (currentRadius - 10);
             PlayerController.Instance.transform.up = -dir;
         }
 
@@ -258,13 +260,13 @@ namespace Game
 
         private void CheckIfOutside(Vector3 position)
         {
-            if (Vector3.Distance(position, transform.position) > levelRadius && !playerIsOutside)
+            if (Vector3.Distance(position, transform.position) > currentRadius && !playerIsOutside)
             {
                 Debug.Log("Player Exited System!");
                 onPlayerExitedSystemBounds?.Invoke();
                 playerIsOutside = true;
             }
-            else if(Vector3.Distance(position, transform.position) < levelRadius && playerIsOutside)
+            else if(Vector3.Distance(position, transform.position) < currentRadius && playerIsOutside)
             {
                 Debug.Log("Player Entered System!");
                 onPlayerEnteredSystemBounds?.Invoke();
