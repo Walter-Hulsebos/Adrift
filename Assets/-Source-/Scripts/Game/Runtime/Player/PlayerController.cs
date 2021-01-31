@@ -83,6 +83,7 @@ namespace Game
                 __health -= Mathf.RoundToInt(25 * (currentSpeed / maxSpeed));
             }
 
+            VoiceManager.Instance.PlayClip(5);
             onHitObstacle?.Invoke(currentSpeed/maxSpeed);
         }
 

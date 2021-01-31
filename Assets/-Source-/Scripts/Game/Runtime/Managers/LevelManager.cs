@@ -10,6 +10,7 @@ namespace Game
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private SceneReference credits;
+        [SerializeField] private GameObject scanner;
 
         public int requiredNeutronium = 150;
         [SerializeField] private TMP_Text text;
@@ -66,7 +67,7 @@ namespace Game
         {
             if(currentNeutronium >= requiredNeutronium)
             {
-                //TODO: play audio notifying player that they now have enough neutronium.
+                VoiceManager.Instance.PlayClip(4);
                 allowJump = true;
 
                 int[] optionsToActivate = options[currentOption];
@@ -88,7 +89,7 @@ namespace Game
             if(!allowJump)
             {
                 Debug.Log("Not ready");
-                //Play audio.
+                VoiceManager.Instance.PlayClip(8);
 
                 return;
             }
@@ -98,8 +99,7 @@ namespace Game
                 if (selectedOption == 14)
                 {
                     Debug.Log("Game end!");
-
-                    //start congratulating audio.
+                    
                     StartCoroutine(Victory());
                     return;
                 }
@@ -111,23 +111,18 @@ namespace Game
                     ResourceManager.Instance.storedNeutronium = 0;
                 }
 
-                currentOption = selectedOption;
-                selectedOption = -1;
-                allowJump = false;
-
-                text.color = stateColours[0];
-                text.text = stateMessages[0];
+                
 
                 //TODO: Jump (I.e. start sequence and refresh level) & play audio
 
                 //TODO: ADD DELAY
-                SystemManager.Instance.GenerateLevel();
+                StartCoroutine(Jumping());
                 Debug.Log("Jumping!");
             }
             else
             {
                 Debug.Log("No Destination");
-                //TODO: Play audio notifying user that no selection has been made.
+                VoiceManager.Instance.PlayClip(9);
             }
         }
 
@@ -143,13 +138,57 @@ namespace Game
             text.text = stateMessages[2];
 
             selectedOption = option;
+            VoiceManager.Instance.PlayClip(13);
+        }
+
+        IEnumerator Jumping()
+        {
+            scanner.SetActive(false);
+
+            VoiceManager.Instance.PlayClip(6);
+
+            //TODO: Screenshake
+            while(VoiceManager.Instance.IsPlaying)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(2);
+
+            SystemManager.Instance.GenerateLevel();
+            scanner.SetActive(true);
+            VoiceManager.Instance.PlayClip(1);
+
+            while (VoiceManager.Instance.IsPlaying)
+            {
+                yield return null;
+            }
+
+            if(SystemManager.Instance.hasEnemies)
+            {
+                VoiceManager.Instance.PlayClip(7);
+            }
+
+            currentOption = selectedOption;
+            selectedOption = -1;
+            allowJump = false;
+
+            text.color = stateColours[0];
+            text.text = stateMessages[0];
         }
 
         IEnumerator Victory()
         {
-            while(false)//Check if player finished playing audio.
+            while(VoiceManager.Instance.IsPlaying)//Check if player finished playing audio.
             {
                 yield return new WaitForSeconds(1);
+            }
+
+            VoiceManager.Instance.PlayClip(15);
+
+            while (VoiceManager.Instance.IsPlaying)//Check if player finished playing audio.
+            {
+                yield return null;
             }
 
             QuitGame.Instance.Quit();

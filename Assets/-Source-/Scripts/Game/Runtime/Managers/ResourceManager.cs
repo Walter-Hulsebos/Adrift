@@ -16,6 +16,7 @@ namespace Game
 
         public void AddNeutronium(int amount)
         {
+            VoiceManager.Instance.PlayClip(3);
             storedNeutronium += amount;
             onReceivedNeutronium?.Invoke(storedNeutronium);
             onNeutroniumChanged?.Invoke(storedNeutronium);

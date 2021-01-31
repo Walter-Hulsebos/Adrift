@@ -26270,6 +26270,10 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8621994286437156528, guid: 1682274ebd5b1f540af60354197f4f0e, type: 3}
+      propertyPath: scanner
+      value: 
+      objectReference: {fileID: 3225149704870122401}
+    - target: {fileID: 8621994286437156528, guid: 1682274ebd5b1f540af60354197f4f0e, type: 3}
       propertyPath: credits.scenePath
       value: Assets/-Source-/Scenes/Credits.unity
       objectReference: {fileID: 0}

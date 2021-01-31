@@ -17,6 +17,8 @@ namespace Game
         public delegate void PlayerEnteredSystemBounds();
         public PlayerExitedSystemBounds onPlayerEnteredSystemBounds;
 
+        public bool hasEnemies;
+
         #endregion
 
         #region Private
@@ -207,8 +209,10 @@ namespace Game
 
             #region Spawning Enemies
 
+            hasEnemies = false;
             if (Random.Range(0, 101) <= enemySpawnChance)
             {
+                hasEnemies = true;
                 for (int i = 0; i < requiredEnemies; i++)
                 {
                     int objectToSpawnOn = Random.Range(0, spawnedObjects.Count);

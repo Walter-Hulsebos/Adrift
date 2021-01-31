@@ -28,14 +28,6 @@ namespace Game
         void Start()
         {
             currentShieldHealth = maxShieldHealth;
-            PlayerController.Instance.onHitObstacle += Impact;
-        }
-
-        void Impact(float force)
-        {
-            currentShieldHealth -= currentShieldHealth * force;
-            wasHit = true;
-            timeSinceHit = 0;
         }
 
         // Update is called once per frame
@@ -71,9 +63,9 @@ namespace Game
             if(currentShieldHealth < maxShieldHealth)
             {
                 currentShieldHealth += regenSpeed * Time.deltaTime;
-                Mathf.Clamp(currentShieldHealth, 0, maxShieldHealth);
+                currentShieldHealth = Mathf.Clamp(currentShieldHealth, 0, maxShieldHealth);
 
-                if(currentShieldHealth == maxShieldHealth)
+                if(currentShieldHealth >= maxShieldHealth)
                 {
                     onShieldsRecharged?.Invoke();
                 }

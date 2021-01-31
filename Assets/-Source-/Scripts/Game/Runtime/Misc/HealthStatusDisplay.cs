@@ -47,12 +47,12 @@ namespace Game
 
         void ShieldsDown()
         {
-            //TODO: Play audio message
+            VoiceManager.Instance.PlayClip(11);
         }
 
         void ShieldsRecharged()
         {
-            //TODO: Play audio message
+            VoiceManager.Instance.PlayClip(12);
         }
     }
 }
